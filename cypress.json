@@ -1,0 +1,9 @@
+{
+  "projectId": "or6diq",
+  "baseUrl": "https://biblio.ugent.be",
+  "video": false,
+  "defaultCommandTimeout": 2000,
+  "viewportWidth": 1200,
+  "blacklistHosts": ["*google-analytics.com", "*hotjar.com"],
+  "env": {}
+}
