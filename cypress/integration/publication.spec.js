@@ -1,13 +1,71 @@
 describe('The Publications page', () => {
-  it('should load without errors', () => {
-    cy.visit('/publication')
-  })
+  beforeEach(() => cy.visit('/publication'))
 
   xit('should be possible to search by full text', () => {})
 
-  xit('should be possible to filter by publication types', () => {})
+  describe('The publication type filter', () => {
+    const publicationTypes = {
+      book: 'Book',
+      bookChapter: 'Book Chapter',
+      bookEditor: 'Book Editor',
+      conference: 'Conference Paper',
+      dissertation: 'PhD Thesis',
+      issueEditor: 'Issue Editor',
+      journalArticle: 'Journal Article',
+      misc: 'Miscellaneous'
+      // 'preprint': '...',
+      // 'researchData': '...
+    }
 
-  xit('should be possible to filter by publication statuses', () => {})
+    Object.keys(publicationTypes).forEach(type => {
+      it(`should be possible to filter by publication type ${type}`, () => {
+        cy.param('type').should('be.null')
+
+        cy.get(`:checkbox[id^="facet-type-"][value="${type}"]`).click()
+
+        cy.param('type').should('eq', type)
+
+        cy.get('.btn-tag')
+          .map('textContent')
+          .unique()
+          .should('include.members', [publicationTypes[type]])
+
+        cy.get('.active-filter')
+          .as('filter')
+          .should('have.length', 1)
+          .should(f => expect(f[0].textContent.trim()).to.eq(`type: ${type}`))
+          .find('a')
+          .click()
+
+        cy.param('type').should('be.null')
+        cy.get('@filter').should('have.length', 0)
+      })
+    })
+  })
+
+  describe('The publication statys filter', () => {
+    const publicationStatuses = ['inpress', 'published', 'unpublished']
+
+    publicationStatuses.forEach(status => {
+      it(`should be possible to filter by publication status ${status}`, () => {
+        cy.param('status').should('be.null')
+
+        cy.get(`:checkbox[id^="facet-publication_status-"][value="${status}"]`).click()
+
+        cy.param('publication_status').should('eq', status)
+
+        cy.get('.active-filter')
+          .as('filter')
+          .should('have.length', 1)
+          .should(f => expect(f[0].textContent.trim()).to.eq(`publication_status: ${status}`))
+          .find('a')
+          .click()
+
+        cy.param('publication_status').should('be.null')
+        cy.get('@filter').should('have.length', 0)
+      })
+    })
+  })
 
   xit('should be possible to filter by publication years', () => {})
 
