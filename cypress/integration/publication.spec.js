@@ -54,7 +54,7 @@ describe('The Publications page', () => {
     })
   })
 
-  describe('The publication statys filter', () => {
+  describe('The publication status filter', () => {
     const publicationStatuses = ['inpress', 'published', 'unpublished']
 
     publicationStatuses.forEach(status => {
