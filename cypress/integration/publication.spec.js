@@ -21,9 +21,20 @@ describe('The Publications page', () => {
       it(`should be possible to filter by publication type ${type}`, () => {
         cy.param('type').should('be.null')
 
-        cy.get(`:checkbox[id^="facet-type-"][value="${type}"]`).click()
+        cy.get(`:checkbox[id^="facet-type-"][value="${type}"]`)
+          .as('facet')
+          .next()
+          .find('.text-muted')
+          .getCount()
+          .as('facetCount')
+
+        cy.get('@facet').click()
 
         cy.param('type').should('eq', type)
+
+        cy.getCount().should(function(count) {
+          expect(count).to.eq(this.facetCount)
+        })
 
         cy.get('.btn-tag')
           .map('textContent')
@@ -50,9 +61,20 @@ describe('The Publications page', () => {
       it(`should be possible to filter by publication status ${status}`, () => {
         cy.param('status').should('be.null')
 
-        cy.get(`:checkbox[id^="facet-publication_status-"][value="${status}"]`).click()
+        cy.get(`:checkbox[id^="facet-publication_status-"][value="${status}"]`)
+          .as('facet')
+          .next()
+          .find('.text-muted')
+          .getCount()
+          .as('facetCount')
+
+        cy.get('@facet').click()
 
         cy.param('publication_status').should('eq', status)
+
+        cy.getCount().should(function(count) {
+          expect(count).to.eq(this.facetCount)
+        })
 
         cy.get('.active-filter')
           .as('filter')
