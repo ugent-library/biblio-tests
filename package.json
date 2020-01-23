@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "cypress": "^3.8.2",
-    "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#^3"
+    "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#^3.12"
   }
 }
