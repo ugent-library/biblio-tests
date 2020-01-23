@@ -97,7 +97,40 @@ describe('The Publications page', () => {
 
   xit('should be possible to filter by custom years', () => {})
 
-  xit('should be possible to filter by access types', () => {})
+  describe('The file access filter', () => {
+    const accessOptions = ['open', 'restricted']
+
+    accessOptions.forEach(accessOption => {
+      it(`should be possible to filter by file access ${accessOption}`, () => {
+        cy.param('file_access').should('be.null')
+
+        cy.get(`:checkbox[id^="facet-file_access-"][value="${accessOption}"]`)
+          .as('facet')
+          .next()
+          .find('.text-muted')
+          .getCount()
+          .as('facetCount')
+
+        cy.get('@facet').click()
+
+        cy.param('file_access').should('eq', accessOption)
+
+        cy.getCount().should(function(count) {
+          expect(count).to.eq(this.facetCount)
+        })
+
+        cy.get('.active-filter')
+          .as('filter')
+          .should('have.length', 1)
+          .should(f => expect(f[0].textContent.trim()).to.eq(`file_access: ${accessOption}`))
+          .find('a')
+          .click()
+
+        cy.param('file_access').should('be.null')
+        cy.get('@filter').should('have.length', 0)
+      })
+    })
+  })
 
   xit('should be possible to filter by subjects', () => {})
 
