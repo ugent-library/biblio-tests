@@ -132,7 +132,65 @@ describe('The Publications page', () => {
     })
   })
 
-  xit('should be possible to filter by subjects', () => {})
+  describe('The subject filter', () => {
+    const subjects = [
+      'Agriculture and Food Sciences',
+      'Arts and Architecture',
+      'Biology and Life Sciences',
+      'Business and Economics',
+      'Chemistry',
+      'Cultural Sciences',
+      'Earth and Environmental Sciences',
+      'General Works',
+      'History and Archaeology',
+      'Languages and Literatures',
+      'Law and Political Science',
+      'Mathematics and Statistics',
+      'Medicine and Health Sciences',
+      'Performing Arts',
+      'Philosophy and Religion',
+      'Physics and Astronomy',
+      'Science General',
+      'Social Sciences',
+      'Technology and Engineering',
+      'Veterinary Sciences'
+    ]
+
+    subjects.forEach(subject => {
+      it(`should be possible to filter by subject ${subject}`, () => {
+        cy.param('subject').should('be.null')
+
+        cy.contains('h2', 'Subject')
+          .next('.bootstrap-select')
+          .children('button')
+          .should('have.length', 1)
+          .click()
+
+        cy.contains(subject)
+          .as('facet')
+          .getCount()
+          .as('facetCount')
+
+        cy.get('@facet').click()
+
+        cy.param('subject').should('eq', subject)
+
+        cy.getCount().should(function(count) {
+          expect(count).to.eq(this.facetCount)
+        })
+
+        cy.get('.active-filter')
+          .as('filter')
+          .should('have.length', 1)
+          .should(f => expect(f[0].textContent.trim()).to.eq(`subject: ${subject}`))
+          .find('a')
+          .click()
+
+        cy.param('subject').should('be.null')
+        cy.get('@filter').should('have.length', 0)
+      })
+    })
+  })
 
   describe('The classification filter', () => {
     const classifications = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'C1', 'C3', 'D1', 'P1', 'U', 'V']

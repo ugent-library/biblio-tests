@@ -4,7 +4,13 @@ Cypress.Commands.add('getCount', { prevSubject: ['element', 'optional'] }, subje
   }
 
   let text = subject.prop('textContent')
-  let count = parseInt(text.replace(/[,\(\)]/g, ''))
+
+  let matches
+  if ((matches = text.match(/\((?<count>\d+)\)/))) {
+    text = matches.groups.count
+  }
+
+  let count = parseInt(text)
 
   Cypress.log({
     name: 'getCount',
