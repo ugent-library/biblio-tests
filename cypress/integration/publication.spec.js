@@ -134,7 +134,40 @@ describe('The Publications page', () => {
 
   xit('should be possible to filter by subjects', () => {})
 
-  xit('should be possible to filter by classifications', () => {})
+  describe('The classification filter', () => {
+    const classifications = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'C1', 'C3', 'D1', 'P1', 'U', 'V']
+
+    classifications.forEach(classification => {
+      it(`should be possible to filter by classification ${classification}`, () => {
+        cy.param('classification').should('be.null')
+
+        cy.get(`:checkbox[id^="facet-classification-"][value="${classification}"]`)
+          .as('facet')
+          .next()
+          .find('.text-muted')
+          .getCount()
+          .as('facetCount')
+
+        cy.get('@facet').click()
+
+        cy.param('classification').should('eq', classification)
+
+        cy.getCount().should(function(count) {
+          expect(count).to.eq(this.facetCount)
+        })
+
+        cy.get('.active-filter')
+          .as('filter')
+          .should('have.length', 1)
+          .should(f => expect(f[0].textContent.trim()).to.eq(`classification: ${classification}`))
+          .find('a')
+          .click()
+
+        cy.param('classification').should('be.null')
+        cy.get('@filter').should('have.length', 0)
+      })
+    })
+  })
 
   xit('should be possible to filter by languages', () => {})
 
