@@ -227,7 +227,7 @@ describe('The Publications page', () => {
     })
   })
 
-  describe.only('The language filter', () => {
+  describe('The language filter', () => {
     const languages = {
       // Selection of 60+ languages
       ang: 'Old English',
