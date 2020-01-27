@@ -277,7 +277,6 @@ describe('The Publications page', () => {
       })
     })
   })
-  xit('should be possible to filter by languages', () => {})
 
   xit('should be possible to filter by organisations', () => {})
 
