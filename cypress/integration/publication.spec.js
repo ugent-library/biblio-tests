@@ -227,6 +227,56 @@ describe('The Publications page', () => {
     })
   })
 
+  describe.only('The language filter', () => {
+    const languages = {
+      // Selection of 60+ languages
+      ang: 'Old English',
+      chi: 'Chinese',
+      fin: 'Finnish',
+      fre: 'French',
+      ine: 'Indo-European languages',
+      ita: 'Italian',
+      jpn: 'Japanese',
+      rus: 'Russian',
+      spa: 'Spanish'
+    }
+
+    Object.keys(languages).forEach(language => {
+      it(`should be possible to filter by language ${languages[language]}`, () => {
+        cy.param('language').should('be.null')
+
+        cy.contains('h2', 'Language')
+          .next('.bootstrap-select')
+          .children('button')
+          .should('have.length', 1)
+          .click()
+          .next('.dropdown-menu')
+          .should('be.visible')
+          .contains('span.text', languages[language])
+          .as('facet')
+          .getCount()
+          .as('facetCount')
+
+        cy.get('@facet').click()
+
+        cy.param('language').should('eq', language)
+
+        cy.getCount().should(function(count) {
+          expect(count).to.eq(this.facetCount)
+        })
+
+        cy.get('.active-filter')
+          .as('filter')
+          .should('have.length', 1)
+          .should(f => expect(f[0].textContent.trim()).to.eq(`language: ${language}`))
+          .find('a')
+          .click()
+
+        cy.param('language').should('be.null')
+        cy.get('@filter').should('have.length', 0)
+      })
+    })
+  })
   xit('should be possible to filter by languages', () => {})
 
   xit('should be possible to filter by organisations', () => {})
