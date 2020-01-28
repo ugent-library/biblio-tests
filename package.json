@@ -6,10 +6,21 @@
   "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
   "license": "MIT",
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "precommit": "node -r esm scripts/precommit.js"
   },
+  "pre-commit": [
+    "precommit"
+  ],
+  "precommit.silent": true,
   "dependencies": {
     "cypress": "^3.8.2",
     "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#^3.12"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "esm": "^3.2.25",
+    "pre-commit": "^1.2.2",
+    "promisify-child-process": "^3.1.3"
   }
 }
