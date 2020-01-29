@@ -220,7 +220,7 @@ describe('The Publications page', () => {
           .click()
           .next('.dropdown-menu')
           .should('be.visible')
-          .contains('span.text', languages[language])
+          .contains('span.text', new RegExp(`^\\s*${languages[language]} \\(\\d+\\)\\s*$`))
           .as('facet')
           .getCount()
           .as('facetCount')
