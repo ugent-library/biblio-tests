@@ -16,3 +16,11 @@
 import 'cypress-common'
 
 import './commands'
+
+Array.prototype.takeRandomSet = function(numberOfItems = 3) {
+  return Cypress._.take(Cypress._.shuffle(this), numberOfItems)
+}
+
+Object.prototype.takeRandomSet = function(numberOfItems = 3) {
+  return Object.keys(this).takeRandomSet(numberOfItems)
+}

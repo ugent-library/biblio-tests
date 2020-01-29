@@ -7,6 +7,7 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "test": "cypress run",
+    "generate-fixtures": "node -r esm scripts/generate-fixtures.js",
     "precommit": "node node_modules/js-precommit-hook"
   },
   "pre-commit": {
@@ -20,6 +21,8 @@
   },
   "devDependencies": {
     "js-precommit-hook": "https://github.com/Universiteitsbibliotheek/js-precommit-hook#^1.0.1",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "esm": "^3.2.25",
+    "jsdom": "^16.0.1"
   }
 }

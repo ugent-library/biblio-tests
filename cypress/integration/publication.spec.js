@@ -17,7 +17,7 @@ describe('The Publications page', () => {
       // 'researchData': '...
     }
 
-    Object.keys(publicationTypes).forEach(type => {
+    publicationTypes.takeRandomSet().forEach(type => {
       it(`should be possible to filter by publication type ${type}`, () => {
         cy.param('type').should('be.null')
 
@@ -57,7 +57,7 @@ describe('The Publications page', () => {
   describe('The publication status filter', () => {
     const publicationStatuses = ['inpress', 'published', 'unpublished']
 
-    publicationStatuses.forEach(status => {
+    publicationStatuses.takeRandomSet().forEach(status => {
       it(`should be possible to filter by publication status ${status}`, () => {
         cy.param('status').should('be.null')
 
@@ -100,7 +100,7 @@ describe('The Publications page', () => {
   describe('The file access filter', () => {
     const accessOptions = ['open', 'restricted']
 
-    accessOptions.forEach(accessOption => {
+    accessOptions.takeRandomSet().forEach(accessOption => {
       it(`should be possible to filter by file access ${accessOption}`, () => {
         cy.param('file_access').should('be.null')
 
@@ -133,30 +133,9 @@ describe('The Publications page', () => {
   })
 
   describe('The subject filter', () => {
-    const subjects = [
-      'Agriculture and Food Sciences',
-      'Arts and Architecture',
-      'Biology and Life Sciences',
-      'Business and Economics',
-      'Chemistry',
-      'Cultural Sciences',
-      'Earth and Environmental Sciences',
-      'General Works',
-      'History and Archaeology',
-      'Languages and Literatures',
-      'Law and Political Science',
-      'Mathematics and Statistics',
-      'Medicine and Health Sciences',
-      'Performing Arts',
-      'Philosophy and Religion',
-      'Physics and Astronomy',
-      'Science General',
-      'Social Sciences',
-      'Technology and Engineering',
-      'Veterinary Sciences'
-    ]
+    const subjects = require('../fixtures/subject')
 
-    subjects.forEach(subject => {
+    subjects.takeRandomSet().forEach(subject => {
       it(`should be possible to filter by subject ${subject}`, () => {
         cy.param('subject').should('be.null')
 
@@ -193,9 +172,9 @@ describe('The Publications page', () => {
   })
 
   describe('The classification filter', () => {
-    const classifications = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'C1', 'C3', 'D1', 'P1', 'U', 'V']
+    const classifications = require('../fixtures/classification')
 
-    classifications.forEach(classification => {
+    classifications.takeRandomSet().forEach(classification => {
       it(`should be possible to filter by classification ${classification}`, () => {
         cy.param('classification').should('be.null')
 
@@ -228,20 +207,9 @@ describe('The Publications page', () => {
   })
 
   describe('The language filter', () => {
-    const languages = {
-      // Selection of 60+ languages
-      ang: 'Old English',
-      chi: 'Chinese',
-      fin: 'Finnish',
-      fre: 'French',
-      ine: 'Indo-European languages',
-      ita: 'Italian',
-      jpn: 'Japanese',
-      rus: 'Russian',
-      spa: 'Spanish'
-    }
+    const languages = require('../fixtures/language')
 
-    Object.keys(languages).forEach(language => {
+    languages.takeRandomSet().forEach(language => {
       it(`should be possible to filter by language ${languages[language]}`, () => {
         cy.param('language').should('be.null')
 
