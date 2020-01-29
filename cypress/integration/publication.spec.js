@@ -246,7 +246,45 @@ describe('The Publications page', () => {
     })
   })
 
-  xit('should be possible to filter by organisations', () => {})
+  describe('The organization filter', () => {
+    const organizations = require('../fixtures/organization')
+
+    organizations.takeRandomSet().forEach(organization => {
+      it(`should be possible to filter by language ${organizations[organization]}`, () => {
+        cy.param('organization').should('be.null')
+
+        cy.contains('h2', 'Organization')
+          .next('.bootstrap-select')
+          .children('button')
+          .should('have.length', 1)
+          .click()
+          .next('.dropdown-menu')
+          .should('be.visible')
+          .contains('span.text', organizations[organization])
+          .as('facet')
+          .getCount()
+          .as('facetCount')
+
+        cy.get('@facet').click()
+
+        cy.param('organization').should('eq', organization)
+
+        cy.getCount().should(function(count) {
+          expect(count).to.eq(this.facetCount)
+        })
+
+        cy.get('.active-filter')
+          .as('filter')
+          .should('have.length', 1)
+          .should(f => expect(f[0].textContent.trim()).to.eq(`organization: ${organization}`))
+          .find('a')
+          .click()
+
+        cy.param('organization').should('be.null')
+        cy.get('@filter').should('have.length', 0)
+      })
+    })
+  })
 
   xit('should be possible to filter by title', () => {})
 

@@ -37,6 +37,7 @@ async function run() {
   exportFromSelect(dom, 'subject')
   exportFromCheckboxes(dom, 'classification')
   exportFromSelect(dom, 'language')
+  exportFromSelect(dom, 'organization')
 }
 
 run()
