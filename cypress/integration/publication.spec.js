@@ -1,3 +1,5 @@
+import escapeStringRegexp from 'escape-string-regexp'
+
 describe('The Publications page', () => {
   beforeEach(() => cy.visit('/publication'))
 
@@ -256,7 +258,7 @@ describe('The Publications page', () => {
           .click()
           .next('.dropdown-menu')
           .should('be.visible')
-          .contains('span.text', new RegExp(`^\\s*${languages[language]} \\(\\d+\\)\\s*$`))
+          .contains('span.text', new RegExp(`^\\s*${escapeStringRegexp(languages[language])} \\(\\d+\\)\\s*$`))
           .as('facet')
           .getCount()
           .as('facetCount')
