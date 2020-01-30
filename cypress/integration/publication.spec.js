@@ -5,6 +5,51 @@ describe('The Publications page', () => {
 
   xit('should be possible to search by full text', () => {})
 
+  function checkboxFacetTest(facetType, facet, facetLabel = null, testForPublicationTag = false) {
+    cy.param(facetType).should('be.null')
+
+    cy.get(`:checkbox[id^="facet-${facetType}-"]`)
+      .as('facets')
+      .should('not.be.checked')
+      .filter(`[value="${facet}"]`)
+      .as('facet')
+      .next()
+      .find('.text-muted')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.param(facetType).should('eq', facet)
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+
+    cy.get('@facet').should('be.checked')
+    cy.get('@facets')
+      .filter(`[value!="${facet}"]`)
+      .should('not.be.checked')
+
+    if (testForPublicationTag) {
+      cy.get('.btn-tag')
+        .map('textContent')
+        .unique()
+        .should('include.members', [facetLabel || facet])
+    }
+
+    cy.get('.active-filter')
+      .as('filter')
+      .should('have.length', 1)
+      .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
+      .find('a')
+      .click()
+
+    cy.param(facetType).should('be.null')
+    cy.get('@facets').should('not.be.checked')
+    cy.get('@filter').should('have.length', 0)
+  }
+
   describe('The publication type filter', () => {
     const publicationTypes = {
       book: 'Book',
@@ -20,92 +65,17 @@ describe('The Publications page', () => {
     }
 
     publicationTypes.takeRandomSet().forEach(type => {
-      it(`should be possible to filter by publication type ${type}`, () => {
-        cy.param('type').should('be.null')
-
-        cy.get(':checkbox[id^="facet-type-"]')
-          .as('facets')
-          .should('not.be.checked')
-          .filter(`[value="${type}"]`)
-          .as('facet')
-          .next()
-          .find('.text-muted')
-          .getCount()
-          .as('facetCount')
-
-        cy.get('@facet').click()
-
-        cy.param('type').should('eq', type)
-
-        cy.getCount().should(function(count) {
-          expect(count).to.eq(this.facetCount)
-        })
-
-        cy.get('@facet').should('be.checked')
-        cy.get('@facets')
-          .filter(`[value!="${type}"]`)
-          .should('not.be.checked')
-
-        cy.get('.btn-tag')
-          .map('textContent')
-          .unique()
-          .should('include.members', [publicationTypes[type]])
-
-        cy.get('.active-filter')
-          .as('filter')
-          .should('have.length', 1)
-          .should(f => expect(f[0].textContent.trim()).to.eq(`type: ${type}`))
-          .find('a')
-          .click()
-
-        cy.param('type').should('be.null')
-        cy.get('@facets').should('not.be.checked')
-        cy.get('@filter').should('have.length', 0)
-      })
+      it(`should be possible to filter by publication type ${type}`, () =>
+        checkboxFacetTest('type', type, publicationTypes[type], true))
     })
   })
 
   describe('The publication status filter', () => {
     const publicationStatuses = ['inpress', 'published', 'unpublished']
 
-    publicationStatuses.takeRandomSet().forEach(status => {
-      it(`should be possible to filter by publication status ${status}`, () => {
-        cy.param('status').should('be.null')
-
-        cy.get(':checkbox[id^="facet-publication_status-"]')
-          .as('facets')
-          .should('not.be.checked')
-          .filter(`[value="${status}"]`)
-          .as('facet')
-          .next()
-          .find('.text-muted')
-          .getCount()
-          .as('facetCount')
-
-        cy.get('@facet').click()
-
-        cy.param('publication_status').should('eq', status)
-
-        cy.getCount().should(function(count) {
-          expect(count).to.eq(this.facetCount)
-        })
-
-        cy.get('@facet').should('be.checked')
-        cy.get('@facets')
-          .filter(`[value!="${status}"]`)
-          .should('not.be.checked')
-
-        cy.get('.active-filter')
-          .as('filter')
-          .should('have.length', 1)
-          .should(f => expect(f[0].textContent.trim()).to.eq(`publication_status: ${status}`))
-          .find('a')
-          .click()
-
-        cy.param('publication_status').should('be.null')
-        cy.get('@facets').should('not.be.checked')
-        cy.get('@filter').should('have.length', 0)
-      })
+    publicationStatuses.forEach(status => {
+      it(`should be possible to filter by publication status ${status}`, () =>
+        checkboxFacetTest('publication_status', status))
     })
   })
 
@@ -120,44 +90,9 @@ describe('The Publications page', () => {
   describe('The file access filter', () => {
     const accessOptions = ['open', 'restricted']
 
-    accessOptions.takeRandomSet().forEach(accessOption => {
-      it(`should be possible to filter by file access ${accessOption}`, () => {
-        cy.param('file_access').should('be.null')
-
-        cy.get(':checkbox[id^="facet-file_access-"]')
-          .as('facets')
-          .should('not.be.checked')
-          .filter(`[value="${accessOption}"]`)
-          .as('facet')
-          .next()
-          .find('.text-muted')
-          .getCount()
-          .as('facetCount')
-
-        cy.get('@facet').click()
-
-        cy.param('file_access').should('eq', accessOption)
-
-        cy.getCount().should(function(count) {
-          expect(count).to.eq(this.facetCount)
-        })
-
-        cy.get('@facet').should('be.checked')
-        cy.get('@facets')
-          .filter(`[value!="${accessOption}"]`)
-          .should('not.be.checked')
-
-        cy.get('.active-filter')
-          .as('filter')
-          .should('have.length', 1)
-          .should(f => expect(f[0].textContent.trim()).to.eq(`file_access: ${accessOption}`))
-          .find('a')
-          .click()
-
-        cy.param('file_access').should('be.null')
-        cy.get('@facets').should('not.be.checked')
-        cy.get('@filter').should('have.length', 0)
-      })
+    accessOptions.forEach(accessOption => {
+      it(`should be possible to filter by file access ${accessOption}`, () =>
+        checkboxFacetTest('file_access', accessOption))
     })
   })
 
@@ -204,43 +139,8 @@ describe('The Publications page', () => {
     const classifications = require('../fixtures/classification')
 
     classifications.takeRandomSet().forEach(classification => {
-      it(`should be possible to filter by classification ${classification}`, () => {
-        cy.param('classification').should('be.null')
-
-        cy.get(':checkbox[id^="facet-classification-"]')
-          .as('facets')
-          .should('not.be.checked')
-          .filter(`[value="${classification}"]`)
-          .as('facet')
-          .next()
-          .find('.text-muted')
-          .getCount()
-          .as('facetCount')
-
-        cy.get('@facet').click()
-
-        cy.param('classification').should('eq', classification)
-
-        cy.getCount().should(function(count) {
-          expect(count).to.eq(this.facetCount)
-        })
-
-        cy.get('@facet').should('be.checked')
-        cy.get('@facets')
-          .filter(`[value!="${classification}"]`)
-          .should('not.be.checked')
-
-        cy.get('.active-filter')
-          .as('filter')
-          .should('have.length', 1)
-          .should(f => expect(f[0].textContent.trim()).to.eq(`classification: ${classification}`))
-          .find('a')
-          .click()
-
-        cy.param('classification').should('be.null')
-        cy.get('@facets').should('not.be.checked')
-        cy.get('@filter').should('have.length', 0)
-      })
+      it(`should be possible to filter by classification ${classification}`, () =>
+        checkboxFacetTest('classification', classification))
     })
   })
 
