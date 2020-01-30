@@ -21,7 +21,10 @@ describe('The Publications page', () => {
       it(`should be possible to filter by publication type ${type}`, () => {
         cy.param('type').should('be.null')
 
-        cy.get(`:checkbox[id^="facet-type-"][value="${type}"]`)
+        cy.get(':checkbox[id^="facet-type-"]')
+          .as('facets')
+          .should('not.be.checked')
+          .filter(`[value="${type}"]`)
           .as('facet')
           .next()
           .find('.text-muted')
@@ -36,6 +39,11 @@ describe('The Publications page', () => {
           expect(count).to.eq(this.facetCount)
         })
 
+        cy.get('@facet').should('be.checked')
+        cy.get('@facets')
+          .filter(`[value!="${type}"]`)
+          .should('not.be.checked')
+
         cy.get('.btn-tag')
           .map('textContent')
           .unique()
@@ -49,6 +57,7 @@ describe('The Publications page', () => {
           .click()
 
         cy.param('type').should('be.null')
+        cy.get('@facets').should('not.be.checked')
         cy.get('@filter').should('have.length', 0)
       })
     })
@@ -61,7 +70,10 @@ describe('The Publications page', () => {
       it(`should be possible to filter by publication status ${status}`, () => {
         cy.param('status').should('be.null')
 
-        cy.get(`:checkbox[id^="facet-publication_status-"][value="${status}"]`)
+        cy.get(':checkbox[id^="facet-publication_status-"]')
+          .as('facets')
+          .should('not.be.checked')
+          .filter(`[value="${status}"]`)
           .as('facet')
           .next()
           .find('.text-muted')
@@ -76,6 +88,11 @@ describe('The Publications page', () => {
           expect(count).to.eq(this.facetCount)
         })
 
+        cy.get('@facet').should('be.checked')
+        cy.get('@facets')
+          .filter(`[value!="${status}"]`)
+          .should('not.be.checked')
+
         cy.get('.active-filter')
           .as('filter')
           .should('have.length', 1)
@@ -84,6 +101,7 @@ describe('The Publications page', () => {
           .click()
 
         cy.param('publication_status').should('be.null')
+        cy.get('@facets').should('not.be.checked')
         cy.get('@filter').should('have.length', 0)
       })
     })
@@ -104,7 +122,10 @@ describe('The Publications page', () => {
       it(`should be possible to filter by file access ${accessOption}`, () => {
         cy.param('file_access').should('be.null')
 
-        cy.get(`:checkbox[id^="facet-file_access-"][value="${accessOption}"]`)
+        cy.get(':checkbox[id^="facet-file_access-"]')
+          .as('facets')
+          .should('not.be.checked')
+          .filter(`[value="${accessOption}"]`)
           .as('facet')
           .next()
           .find('.text-muted')
@@ -119,6 +140,11 @@ describe('The Publications page', () => {
           expect(count).to.eq(this.facetCount)
         })
 
+        cy.get('@facet').should('be.checked')
+        cy.get('@facets')
+          .filter(`[value!="${accessOption}"]`)
+          .should('not.be.checked')
+
         cy.get('.active-filter')
           .as('filter')
           .should('have.length', 1)
@@ -127,6 +153,7 @@ describe('The Publications page', () => {
           .click()
 
         cy.param('file_access').should('be.null')
+        cy.get('@facets').should('not.be.checked')
         cy.get('@filter').should('have.length', 0)
       })
     })
@@ -178,7 +205,10 @@ describe('The Publications page', () => {
       it(`should be possible to filter by classification ${classification}`, () => {
         cy.param('classification').should('be.null')
 
-        cy.get(`:checkbox[id^="facet-classification-"][value="${classification}"]`)
+        cy.get(':checkbox[id^="facet-classification-"]')
+          .as('facets')
+          .should('not.be.checked')
+          .filter(`[value="${classification}"]`)
           .as('facet')
           .next()
           .find('.text-muted')
@@ -193,6 +223,11 @@ describe('The Publications page', () => {
           expect(count).to.eq(this.facetCount)
         })
 
+        cy.get('@facet').should('be.checked')
+        cy.get('@facets')
+          .filter(`[value!="${classification}"]`)
+          .should('not.be.checked')
+
         cy.get('.active-filter')
           .as('filter')
           .should('have.length', 1)
@@ -201,6 +236,7 @@ describe('The Publications page', () => {
           .click()
 
         cy.param('classification').should('be.null')
+        cy.get('@facets').should('not.be.checked')
         cy.get('@filter').should('have.length', 0)
       })
     })
