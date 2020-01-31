@@ -7,7 +7,6 @@ describe('The Publications page', () => {
 
   function checkboxFacetTest(facetType, facet, facetLabel = null, testForPublicationTag = false) {
     cy.param(facetType).should('be.null')
-
     cy.get(`:checkbox[id^="facet-${facetType}-"]`)
       .as('facets')
       .should('not.be.checked')
@@ -15,6 +14,46 @@ describe('The Publications page', () => {
       .as('facet')
       .next()
       .find('.text-muted')
+      .getCount()
+      .as('facetCount')
+    cy.get('@facet').click()
+    cy.param(facetType).should('eq', facet)
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+    cy.get('@facet').should('be.checked')
+    cy.get('@facets')
+      .filter(`[value!="${facet}"]`)
+      .should('not.be.checked')
+    if (testForPublicationTag) {
+      cy.get('.btn-tag')
+        .map('textContent')
+        .unique()
+        .should('include.members', [facetLabel || facet])
+    }
+    cy.get('.active-filter')
+      .as('filter')
+      .should('have.length', 1)
+      .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
+      .find('a')
+      .click()
+    cy.param(facetType).should('be.null')
+    cy.get('@facets').should('not.be.checked')
+    cy.get('@filter').should('have.length', 0)
+  }
+
+  function selectFacetTest(facetType, facet, facetLabel = null) {
+    cy.param(facetType).should('be.null')
+
+    cy.contains('h2', Cypress._.capitalize(facetType))
+      .next('.bootstrap-select')
+      .children('button')
+      .should('have.length', 1)
+      .click()
+      .next('.dropdown-menu')
+      .should('be.visible')
+      .contains('span.text', new RegExp(`^\\s*${escapeStringRegexp(facetLabel || facet)} \\(\\d+\\)\\s*`))
+      .as('facet')
       .getCount()
       .as('facetCount')
 
@@ -26,18 +65,6 @@ describe('The Publications page', () => {
       expect(count).to.eq(this.facetCount)
     })
 
-    cy.get('@facet').should('be.checked')
-    cy.get('@facets')
-      .filter(`[value!="${facet}"]`)
-      .should('not.be.checked')
-
-    if (testForPublicationTag) {
-      cy.get('.btn-tag')
-        .map('textContent')
-        .unique()
-        .should('include.members', [facetLabel || facet])
-    }
-
     cy.get('.active-filter')
       .as('filter')
       .should('have.length', 1)
@@ -46,7 +73,6 @@ describe('The Publications page', () => {
       .click()
 
     cy.param(facetType).should('be.null')
-    cy.get('@facets').should('not.be.checked')
     cy.get('@filter').should('have.length', 0)
   }
 
@@ -100,38 +126,7 @@ describe('The Publications page', () => {
     const subjects = require('../fixtures/subject')
 
     subjects.takeRandomSet().forEach(subject => {
-      it(`should be possible to filter by subject ${subject}`, () => {
-        cy.param('subject').should('be.null')
-
-        cy.contains('h2', 'Subject')
-          .next('.bootstrap-select')
-          .children('button')
-          .should('have.length', 1)
-          .click()
-
-        cy.contains(subject)
-          .as('facet')
-          .getCount()
-          .as('facetCount')
-
-        cy.get('@facet').click()
-
-        cy.param('subject').should('eq', subject)
-
-        cy.getCount().should(function(count) {
-          expect(count).to.eq(this.facetCount)
-        })
-
-        cy.get('.active-filter')
-          .as('filter')
-          .should('have.length', 1)
-          .should(f => expect(f[0].textContent.trim()).to.eq(`subject: ${subject}`))
-          .find('a')
-          .click()
-
-        cy.param('subject').should('be.null')
-        cy.get('@filter').should('have.length', 0)
-      })
+      it(`should be possible to filter by subject ${subject}`, () => selectFacetTest('subject', subject))
     })
   })
 
@@ -148,39 +143,8 @@ describe('The Publications page', () => {
     const languages = require('../fixtures/language')
 
     languages.takeRandomSet().forEach(language => {
-      it(`should be possible to filter by language ${languages[language]}`, () => {
-        cy.param('language').should('be.null')
-
-        cy.contains('h2', 'Language')
-          .next('.bootstrap-select')
-          .children('button')
-          .should('have.length', 1)
-          .click()
-          .next('.dropdown-menu')
-          .should('be.visible')
-          .contains('span.text', new RegExp(`^\\s*${escapeStringRegexp(languages[language])} \\(\\d+\\)\\s*$`))
-          .as('facet')
-          .getCount()
-          .as('facetCount')
-
-        cy.get('@facet').click()
-
-        cy.param('language').should('eq', language)
-
-        cy.getCount().should(function(count) {
-          expect(count).to.eq(this.facetCount)
-        })
-
-        cy.get('.active-filter')
-          .as('filter')
-          .should('have.length', 1)
-          .should(f => expect(f[0].textContent.trim()).to.eq(`language: ${language}`))
-          .find('a')
-          .click()
-
-        cy.param('language').should('be.null')
-        cy.get('@filter').should('have.length', 0)
-      })
+      it(`should be possible to filter by language ${languages[language]}`, () =>
+        selectFacetTest('language', language, languages[language]))
     })
   })
 
@@ -188,39 +152,8 @@ describe('The Publications page', () => {
     const organizations = require('../fixtures/organization')
 
     organizations.takeRandomSet().forEach(organization => {
-      it(`should be possible to filter by language ${organizations[organization]}`, () => {
-        cy.param('organization').should('be.null')
-
-        cy.contains('h2', 'Organization')
-          .next('.bootstrap-select')
-          .children('button')
-          .should('have.length', 1)
-          .click()
-          .next('.dropdown-menu')
-          .should('be.visible')
-          .contains('span.text', organizations[organization])
-          .as('facet')
-          .getCount()
-          .as('facetCount')
-
-        cy.get('@facet').click()
-
-        cy.param('organization').should('eq', organization)
-
-        cy.getCount().should(function(count) {
-          expect(count).to.eq(this.facetCount)
-        })
-
-        cy.get('.active-filter')
-          .as('filter')
-          .should('have.length', 1)
-          .should(f => expect(f[0].textContent.trim()).to.eq(`organization: ${organization}`))
-          .find('a')
-          .click()
-
-        cy.param('organization').should('be.null')
-        cy.get('@filter').should('have.length', 0)
-      })
+      it(`should be possible to filter by language ${organizations[organization]}`, () =>
+        selectFacetTest('organization', organization, organizations[organization]))
     })
   })
 
