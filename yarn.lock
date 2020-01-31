@@ -3,9 +3,9 @@
 
 
 "@babel/runtime@^7.1.5":
-  version "7.8.3"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.3.tgz#0811944f73a6c926bb2ad35e918dcc1bfab279f1"
-  integrity sha512-fVHx1rzEmwB130VTkLnxR+HmxcTjGzH12LYQcFFoBwakMd3aOMD4OsRN7tGG/UOYE2ektgFrS8uACAoRk1CY0w==
+  version "7.8.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.4.tgz#d79f5a2040f7caa24d53e563aad49cbc05581308"
+  integrity sha512-neAp3zt80trRVBI1x0azq6c57aNBqYZH8KhMm3TaB7wEI5Q4A2SHfBHE8w9gOhI/lrqxtEbXZgQIrHP+wvSGwQ==
   dependencies:
     regenerator-runtime "^0.13.2"
 
@@ -797,8 +797,8 @@ isstream@~0.1.2:
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
 "js-precommit-hook@https://github.com/Universiteitsbibliotheek/js-precommit-hook#^1.0.1":
-  version "1.0.1"
-  resolved "https://github.com/Universiteitsbibliotheek/js-precommit-hook#8b8eb02d5fd485a3246e3e3200669011a5bc9f0f"
+  version "1.1.0"
+  resolved "https://github.com/Universiteitsbibliotheek/js-precommit-hook#9e9b002cdfab5c97689216e9ec8bf8db2ac12a32"
   dependencies:
     colors "^1.4.0"
     esm "^3.2.25"
