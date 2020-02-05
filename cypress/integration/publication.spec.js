@@ -7,38 +7,49 @@ describe('The Publications page', () => {
 
   function checkboxFacetTest(facetType, facet, facetLabel = null, testForPublicationTag = false) {
     cy.param(facetType).should('be.null')
+
     cy.get(`:checkbox[id^="facet-${facetType}-"]`)
       .as('facets')
       .should('not.be.checked')
       .filter(`[value="${facet}"]`)
       .as('facet')
-      .next()
+      .siblings('label.plain')
       .find('.text-muted')
       .getCount()
       .as('facetCount')
+
     cy.get('@facet').click()
+
     cy.param(facetType).should('eq', facet)
+
     cy.getCount().should(function(count) {
       expect(count).to.eq(this.facetCount)
     })
+
     cy.get('@facet').should('be.checked')
+
     cy.get('@facets')
       .filter(`[value!="${facet}"]`)
       .should('not.be.checked')
+
     if (testForPublicationTag) {
       cy.get('.btn-tag')
         .map('textContent')
         .unique()
         .should('include.members', [facetLabel || facet])
     }
+
     cy.get('.active-filter')
       .as('filter')
       .should('have.length', 1)
       .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
       .find('a')
       .click()
+
     cy.param(facetType).should('be.null')
+
     cy.get('@facets').should('not.be.checked')
+
     cy.get('@filter').should('have.length', 0)
   }
 
@@ -105,13 +116,90 @@ describe('The Publications page', () => {
     })
   })
 
-  xit('should be possible to filter by publication years', () => {})
+  describe('The publication year facet', () => {
+    const years = require('../fixtures/year')
 
-  xit('should be possible to filter by the last 5 years', () => {})
+    years.takeRandomSet().forEach(year => {
+      it(`should be possible to filter by year ${year}`, () => checkboxFacetTest('year', year))
+    })
 
-  xit('should be possible to filter by the last 10 years', () => {})
+    const yearTests = [5, 10]
+    yearTests.forEach(years =>
+      it(`should be possible to filter by the last ${years} years`, () => {
+        cy.contains('.btn', `Last ${years} years`).click()
 
-  xit('should be possible to filter by custom years', () => {})
+        const year = new Date().getFullYear()
+        const range = Cypress._.range(year - years, year + 1) // .range() excludes the current year
+          .map(i => i.toString())
+        cy.param('year').should('have.all.members', range)
+
+        cy.get(':checkbox[id^="facet-year-"]')
+          .as('facets')
+          .each($el => {
+            if (range.includes($el.val())) {
+              expect($el).to.be.checked
+            } else {
+              expect($el).to.be.not.checked
+            }
+          })
+
+        cy.get('.active-filter')
+          .as('filter')
+          .should('have.length', 1)
+          .should('contain', `year: ${year - years}-${year}`)
+          .find('a')
+          .click()
+
+        cy.param('year').should('be.null')
+        cy.get('@facets').should('not.be.checked')
+      })
+    )
+
+    it('should be possible to filter by custom years', () => {
+      cy.contains('.btn', 'Custom years').click()
+
+      cy.contains(':radio + label', 'Between').click()
+
+      cy.get('input[name=min_year]')
+        .last() // There is an identical field with the after custom year filter
+        .type('{selectall}1993')
+
+      cy.get('input[name=max_year]')
+        .last() // There is an identical field with the before custom year filter
+        .type('{selectall}2005')
+
+      cy.get('.btn[value=Apply]')
+        .last() // There are identical buttons for all custom year filters
+        .click()
+
+      cy.param('year').should('be.null')
+      cy.param('min_year').should('eq', '1993')
+      cy.param('max_year').should('eq', '2005')
+
+      cy.get(':checkbox[id^="facet-year-"]')
+        .as('facets')
+        .each($el => {
+          const year = parseInt($el.val())
+          if (year >= 1993 && year <= 2005) {
+            expect($el).to.be.checked
+          } else {
+            expect($el).to.be.not.checked
+          }
+        })
+
+      cy.get('.active-filter')
+        .as('filter')
+        .should('have.length', 1)
+        .should('contain', 'year: 1993-2005')
+        .find('a')
+        .click()
+
+      cy.param('year').should('be.null')
+      cy.param('max_year').should('be.null')
+      cy.param('min_year').should('be.null')
+      cy.get('@facets').should('not.be.checked')
+    })
+  })
 
   describe('The file access filter', () => {
     const accessOptions = ['open', 'restricted']
