@@ -6,6 +6,10 @@ node_js:
 script:
   - yarn test --config video=true --record --key $CYPRESS_DASHBOARD_KEY
 
+branches:
+  except:
+    - /^issue\-/
+
 cache:
   yarn: true
   directories:
