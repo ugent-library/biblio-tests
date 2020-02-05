@@ -96,9 +96,9 @@ describe('The Publications page', () => {
       dissertation: 'PhD Thesis',
       issueEditor: 'Issue Editor',
       journalArticle: 'Journal Article',
-      misc: 'Miscellaneous'
-      // 'preprint': '...',
-      // 'researchData': '...
+      misc: 'Miscellaneous',
+      preprint: 'Pre-print',
+      researchData: 'Research Data'
     }
 
     publicationTypes.takeRandomSet().forEach(type => {
