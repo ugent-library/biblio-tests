@@ -257,6 +257,10 @@ describe('The Publications page', () => {
 
   xit('should be possible to filter by conference', () => {})
 
+  it('should not have facets without publications', () => {
+    cy.get('.text-muted:contains("(0)")').should('have.length', 0)
+  })
+
   xit('should be possible to combine all filters', () => {})
 
   xit('should be possible to jump through pages of search results', () => {})
