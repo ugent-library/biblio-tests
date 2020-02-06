@@ -199,6 +199,23 @@ describe('The Publications page', () => {
       cy.param('min_year').should('be.null')
       cy.get('@facets').should('not.be.checked')
     })
+
+    // Test for https://github.ugent.be/Universiteitsbibliotheek/biblio/issues/6
+    it('should not display a year 2109 facet', () => {
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+
+      cy.get(':checkbox[id^="facet-year-"][value=2020]').click()
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+
+      cy.get(':checkbox[id^="facet-year-"][value=2021]').click()
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+
+      cy.get(':checkbox[id^="facet-year-"][value=2021]').click()
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+
+      cy.get(':checkbox[id^="facet-year-"][value=2020]').click()
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+    })
   })
 
   describe('The file access filter', () => {
