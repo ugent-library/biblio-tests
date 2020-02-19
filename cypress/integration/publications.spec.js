@@ -310,7 +310,122 @@ describe('The Publications page', () => {
     cy.get('.text-muted:contains("(0)")').should('have.length', 0)
   })
 
-  xit('should be possible to combine all filters', () => {})
+  it('should be possible to combine all filters', () => {
+    // Publication type: journalArticle
+    cy.get(':checkbox[id^="facet-type-"][value=journalArticle]')
+      .as('facet')
+      .next('label')
+      .find('.text-muted')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+
+    // Publication status: published
+    cy.get(':checkbox[id^="facet-publication_status-"][value=published]')
+      .as('facet')
+      .next('label')
+      .find('.text-muted')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+
+    // Publication year: 2015
+    cy.get(':checkbox[id^="facet-year-"][value=2015]')
+      .as('facet')
+      .siblings('label')
+      .find('.text-muted')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+
+    // Access: UGent only
+    cy.get(':checkbox[id^="facet-file_access-"][value=restricted]')
+      .as('facet')
+      .siblings('label')
+      .find('.text-muted')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+
+    // Subject: Medicine and Health Sciences
+    cy.contains('h2', 'Subject')
+      .next('.bootstrap-select')
+      .click()
+      .contains('.dropdown-menu.inner li', 'Medicine and Health Sciences')
+      .as('facet')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+
+    // Classification: A1
+    cy.get(':checkbox[id^="facet-classification-"][value=A1]')
+      .as('facet')
+      .siblings('label')
+      .find('.text-muted')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+
+    // Language: English
+    cy.contains('h2', 'Language')
+      .next('.bootstrap-select')
+      .click()
+      .contains('.dropdown-menu.inner li', 'English')
+      .as('facet')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+
+    // Organization: Department of Internal medicine
+    cy.contains('h2', 'Organization')
+      .next('.bootstrap-select')
+      .click()
+      .contains('.dropdown-menu.inner li', 'Department of Internal medicine')
+      .as('facet')
+      .getCount()
+      .as('facetCount')
+
+    cy.get('@facet').click()
+
+    cy.getCount().should(function(count) {
+      expect(count).to.eq(this.facetCount)
+    })
+  })
 
   xit('should be possible to jump through pages of search results', () => {})
 
