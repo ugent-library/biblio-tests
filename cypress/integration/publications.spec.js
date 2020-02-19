@@ -314,7 +314,31 @@ describe('The Publications page', () => {
 
   xit('should be possible to jump through pages of search results', () => {})
 
-  xit('should be possible to change the number of search results per page', () => {})
+  it('should be possible to change the number of search results per page', () => {
+    const limitOptions = ['5', '10', '15', '20', '50', '100', '250']
+
+    cy.param('limit').should('be.null')
+    cy.get('.breadcrumb .last').should('have.text', '10')
+    cy.get('.selected-limit-option').should('have.text', '10')
+
+    cy.contains('.inline-label', 'Show')
+      .next('.dropdown')
+      .click()
+      .find('.dropdown-menu .limit-option')
+      .as('limitOptions')
+      .map('text')
+      .should('eql', limitOptions)
+
+    const limit = limitOptions[Cypress._.random(limitOptions.length)]
+
+    cy.get('@limitOptions')
+      .filter(`[data-value=${limit}]`)
+      .click()
+
+    cy.param('limit').should('eq', limit)
+    cy.get('.breadcrumb .last').should('have.text', limit)
+    cy.get('.selected-limit-option').should('have.text', limit)
+  })
 
   xit('should be possible to sort the search results', () => {})
 })
