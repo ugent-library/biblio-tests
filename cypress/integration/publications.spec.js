@@ -444,7 +444,7 @@ describe('The Publications page', () => {
       .map('text')
       .should('eql', limitOptions)
 
-    const limit = limitOptions[Cypress._.random(limitOptions.length)]
+    const limit = limitOptions[Cypress._.random(limitOptions.length - 1)]
 
     cy.get('@limitOptions')
       .filter(`[data-value=${limit}]`)
