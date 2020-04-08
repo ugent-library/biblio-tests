@@ -16,7 +16,7 @@
   },
   "precommit.silent": true,
   "dependencies": {
-    "cypress": "^4.0.0",
+    "cypress": "^4.3.0",
     "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#^3.12",
     "escape-string-regexp": "^2.0.0"
   },
