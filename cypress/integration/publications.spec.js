@@ -240,7 +240,7 @@ describe('The Publications page', () => {
     const organizations = require('../fixtures/organization')
 
     organizations.takeRandomSet().forEach(organization => {
-      it(`should be possible to filter by language ${organizations[organization]}`, () =>
+      it(`should be possible to filter by organization ${organizations[organization]}`, () =>
         selectFacetTest('organization', organization, organizations[organization]))
     })
   })
