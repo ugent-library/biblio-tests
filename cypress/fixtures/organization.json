@@ -68,6 +68,7 @@
   "WE14": "Department of Biomedical molecular biology",
   "WE16": "Department of Mathematics: Analysis, Logic and Discrete Mathematics",
   "WE51": "Dean's Office of the Faculty of Science",
+  "WE55": "Science Faculty Library",
   "WE61": "Botanical Garden",
   "WE62": "Workshop of the Faculty of Science",
   "WE63": "Zoology Museum",
@@ -185,6 +186,7 @@
   "PP08": "Department of Psycho-analysis and clinical consulting",
   "PP09": "Department of Personnel management, work and organizational psychology",
   "PP10": "Department of Special Needs Education",
+  "PP11": "Department of Human Resource Management and Organisational Psychology",
   "PP51": "Dean's Office of the Faculty of Psychology and Educational Sciences",
   "PP54": "PC-Lab of the Faculty of Psychology and Educational Sciences",
   "PP55": "Library of the Faculty of Psychology and Educational Sciences",
@@ -239,6 +241,7 @@
   "PS56": "Faculty of Political and Social Sciences - Institute for Permanent Education",
   "PS58": "Faculty Education Services Political and Social Sciences",
   "KR01": "Department of Environmental Technology, Food Technology and Molecular Biotechnology",
+  "DS": "Doctoral Schools",
   "CA": "Central Administration",
   "CA01": "Rector's Office",
   "CA02": "Vice-rector's Office",
@@ -256,5 +259,5 @@
   "CA70": "Department of Infrastructure and Facility Management",
   "CA80": "Department of Student Facilities",
   "CA95": "Ghent University Association",
-  "PP11": "PP11"
+  "DS10": "Doctoral School of Arts, Humanities and Law"
 }

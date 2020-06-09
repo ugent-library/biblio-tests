@@ -22,15 +22,13 @@ describe('The Publications page', () => {
 
     cy.param(facetType).should('eq', facet)
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
     cy.get('@facet').should('be.checked')
 
-    cy.get('@facets')
-      .filter(`[value!="${facet}"]`)
-      .should('not.be.checked')
+    cy.get('@facets').filter(`[value!="${facet}"]`).should('not.be.checked')
 
     if (testForPublicationTag) {
       cy.get('.btn-tag')
@@ -72,7 +70,7 @@ describe('The Publications page', () => {
 
     cy.param(facetType).should('eq', facet)
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
@@ -96,7 +94,7 @@ describe('The Publications page', () => {
       dissertation: 'PhD Thesis',
       issueEditor: 'Issue Editor',
       journalArticle: 'Journal Article',
-      misc: 'Miscellaneous'
+      misc: 'Miscellaneous',
       // 'preprint': '...',
       // 'researchData': '...
     }
@@ -249,29 +247,29 @@ describe('The Publications page', () => {
     const fields = [
       {
         key: 'title',
-        value: 'Holstein cows'
+        value: 'Holstein cows',
       },
       {
         key: 'parent',
         label: 'book, series or journal title',
-        value: 'animal breeding and genetics'
+        value: 'animal breeding and genetics',
       },
       {
         key: 'author',
-        value: 'Hadi Atashi'
+        value: 'Hadi Atashi',
       },
       {
         key: 'keyword',
-        value: 'genome-wide association study'
+        value: 'genome-wide association study',
       },
       {
         key: 'project',
-        value: 'management protocols'
+        value: 'management protocols',
       },
       {
         key: 'conference',
-        value: 'Gut Inflammation Group'
-      }
+        value: 'Gut Inflammation Group',
+      },
     ]
 
     fields.forEach(field => {
@@ -284,11 +282,7 @@ describe('The Publications page', () => {
           .contains('li', field.label || field.key)
           .click()
 
-        cy.get('input[name="q.0.value"]')
-          .type(field.value)
-          .closest('form')
-          .contains('button', 'Apply')
-          .click()
+        cy.get('input[name="q.0.value"]').type(field.value).closest('form').contains('button', 'Apply').click()
 
         const query = `${field.key} = "${field.value}"`
         cy.param('q').should('eq', query)
@@ -321,7 +315,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
@@ -335,7 +329,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
@@ -349,7 +343,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
@@ -363,7 +357,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
@@ -378,7 +372,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
@@ -392,7 +386,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
@@ -407,7 +401,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
 
@@ -422,7 +416,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function(count) {
+    cy.getCount().should(function (count) {
       expect(count).to.eq(this.facetCount)
     })
   })
@@ -446,9 +440,7 @@ describe('The Publications page', () => {
 
     const limit = limitOptions[Cypress._.random(limitOptions.length - 1)]
 
-    cy.get('@limitOptions')
-      .filter(`[data-value=${limit}]`)
-      .click()
+    cy.get('@limitOptions').filter(`[data-value=${limit}]`).click()
 
     cy.param('limit').should('eq', limit)
     cy.get('.breadcrumb .last').should('have.text', limit)
