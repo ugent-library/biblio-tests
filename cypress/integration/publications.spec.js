@@ -5,7 +5,12 @@ describe('The Publications page', () => {
 
   xit('should be possible to search by full text', () => {})
 
-  function checkboxFacetTest(facetType, facet, facetLabel = null, testForPublicationTag = false) {
+  function checkboxFacetTest(
+    facetType,
+    facet,
+    facetLabel = null,
+    testForPublicationTag = false
+  ) {
     cy.param(facetType).should('be.null')
 
     cy.get(`:checkbox[id^="facet-${facetType}-"]`)
@@ -40,7 +45,9 @@ describe('The Publications page', () => {
     cy.get('.active-filter')
       .as('filter')
       .should('have.length', 1)
-      .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
+      .should(f =>
+        expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`)
+      )
       .find('a')
       .click()
 
@@ -61,7 +68,12 @@ describe('The Publications page', () => {
       .click()
       .next('.dropdown-menu')
       .should('be.visible')
-      .contains('span.text', new RegExp(`^\\s*${escapeStringRegexp(facetLabel || facet)} \\(\\d+\\)\\s*`))
+      .contains(
+        'span.text',
+        new RegExp(
+          `^\\s*${escapeStringRegexp(facetLabel || facet)} \\(\\d+\\)\\s*`
+        )
+      )
       .as('facet')
       .getCount()
       .as('facetCount')
@@ -77,7 +89,9 @@ describe('The Publications page', () => {
     cy.get('.active-filter')
       .as('filter')
       .should('have.length', 1)
-      .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
+      .should(f =>
+        expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`)
+      )
       .find('a')
       .click()
 
@@ -118,7 +132,8 @@ describe('The Publications page', () => {
     const years = require('../fixtures/year')
 
     years.takeRandomSet().forEach(year => {
-      it(`should be possible to filter by year ${year}`, () => checkboxFacetTest('year', year))
+      it(`should be possible to filter by year ${year}`, () =>
+        checkboxFacetTest('year', year))
     })
 
     const yearTests = [5, 10]
@@ -197,6 +212,23 @@ describe('The Publications page', () => {
       cy.param('min_year').should('be.null')
       cy.get('@facets').should('not.be.checked')
     })
+
+    // Test for https://github.ugent.be/Universiteitsbibliotheek/biblio/issues/6
+    it('should not display a year 2109 facet', () => {
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+
+      cy.get(':checkbox[id^="facet-year-"][value=2020]').click()
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+
+      cy.get(':checkbox[id^="facet-year-"][value=2021]').click()
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+
+      cy.get(':checkbox[id^="facet-year-"][value=2021]').click()
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+
+      cy.get(':checkbox[id^="facet-year-"][value=2020]').click()
+      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+    })
   })
 
   describe('The file access filter', () => {
@@ -212,7 +244,8 @@ describe('The Publications page', () => {
     const subjects = require('../fixtures/subject')
 
     subjects.takeRandomSet().forEach(subject => {
-      it(`should be possible to filter by subject ${subject}`, () => selectFacetTest('subject', subject))
+      it(`should be possible to filter by subject ${subject}`, () =>
+        selectFacetTest('subject', subject))
     })
   })
 
@@ -239,7 +272,11 @@ describe('The Publications page', () => {
 
     organizations.takeRandomSet().forEach(organization => {
       it(`should be possible to filter by organization ${organizations[organization]}`, () =>
-        selectFacetTest('organization', organization, organizations[organization]))
+        selectFacetTest(
+          'organization',
+          organization,
+          organizations[organization]
+        ))
     })
   })
 
@@ -282,7 +319,11 @@ describe('The Publications page', () => {
           .contains('li', field.label || field.key)
           .click()
 
-        cy.get('input[name="q.0.value"]').type(field.value).closest('form').contains('button', 'Apply').click()
+        cy.get('input[name="q.0.value"]')
+          .type(field.value)
+          .closest('form')
+          .contains('button', 'Apply')
+          .click()
 
         const query = `${field.key} = "${field.value}"`
         cy.param('q').should('eq', query)
