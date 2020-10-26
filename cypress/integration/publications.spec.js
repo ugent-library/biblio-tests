@@ -280,67 +280,6 @@ describe('The Publications page', () => {
     })
   })
 
-  describe('The text filters', () => {
-    const fields = [
-      {
-        key: 'title',
-        value: 'Holstein cows',
-      },
-      {
-        key: 'parent',
-        label: 'book, series or journal title',
-        value: 'animal breeding and genetics',
-      },
-      {
-        key: 'author',
-        value: 'Hadi Atashi',
-      },
-      {
-        key: 'keyword',
-        value: 'genome-wide association study',
-      },
-      {
-        key: 'project',
-        value: 'management protocols',
-      },
-      {
-        key: 'conference',
-        value: 'Gut Inflammation Group',
-      },
-    ]
-
-    fields.forEach(field => {
-      it(`should be possible to filter for ${field.label || field.key}`, () => {
-        cy.contains('h2', 'Show results matching')
-          .next('form.fielded-search')
-          .find('.bootstrap-select button')
-          .click()
-          .next('.dropdown-menu.open')
-          .contains('li', field.label || field.key)
-          .click()
-
-        cy.get('input[name="q.0.value"]')
-          .type(field.value)
-          .closest('form')
-          .contains('button', 'Apply')
-          .click()
-
-        const query = `${field.key} = "${field.value}"`
-        cy.param('q').should('eq', query)
-
-        cy.get('.active-filter')
-          .as('filter')
-          .should('have.length', 1)
-          .should('contain', 'cql: ' + query)
-          .find('a')
-          .click()
-
-        cy.param('q').should('be.null')
-        cy.get('@filter').should('have.length', 0)
-      })
-    })
-  })
-
   it('should not have facets without publications', () => {
     cy.get('.text-muted:contains("(0)")').should('have.length', 0)
   })
