@@ -5,12 +5,7 @@ describe('The Publications page', () => {
 
   xit('should be possible to search by full text', () => {})
 
-  function checkboxFacetTest(
-    facetType,
-    facet,
-    facetLabel = null,
-    testForPublicationTag = false
-  ) {
+  function checkboxFacetTest(facetType, facet, facetLabel = null, testForPublicationTag = false) {
     cy.param(facetType).should('be.null')
 
     cy.get(`:checkbox[id^="facet-${facetType}-"]`)
@@ -45,9 +40,7 @@ describe('The Publications page', () => {
     cy.get('.active-filter')
       .as('filter')
       .should('have.length', 1)
-      .should(f =>
-        expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`)
-      )
+      .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
       .find('a')
       .click()
 
@@ -68,12 +61,7 @@ describe('The Publications page', () => {
       .click()
       .next('.dropdown-menu')
       .should('be.visible')
-      .contains(
-        'span.text',
-        new RegExp(
-          `^\\s*${escapeStringRegexp(facetLabel || facet)} \\(\\d+\\)\\s*`
-        )
-      )
+      .contains('span.text', new RegExp(`^\\s*${escapeStringRegexp(facetLabel || facet)} \\(\\d+\\)\\s*`))
       .as('facet')
       .getCount()
       .as('facetCount')
@@ -89,9 +77,7 @@ describe('The Publications page', () => {
     cy.get('.active-filter')
       .as('filter')
       .should('have.length', 1)
-      .should(f =>
-        expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`)
-      )
+      .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
       .find('a')
       .click()
 
@@ -109,7 +95,7 @@ describe('The Publications page', () => {
       issueEditor: 'Issue Editor',
       journalArticle: 'Journal Article',
       misc: 'Miscellaneous',
-      preprint: 'Pre-print',
+      preprint: 'Preprint',
       researchData: 'Research Data',
     }
 
@@ -132,8 +118,7 @@ describe('The Publications page', () => {
     const years = require('../fixtures/year')
 
     years.takeRandomSet().forEach(year => {
-      it(`should be possible to filter by year ${year}`, () =>
-        checkboxFacetTest('year', year))
+      it(`should be possible to filter by year ${year}`, () => checkboxFacetTest('year', year))
     })
 
     const yearTests = [5, 10]
@@ -244,8 +229,7 @@ describe('The Publications page', () => {
     const subjects = require('../fixtures/subject')
 
     subjects.takeRandomSet().forEach(subject => {
-      it(`should be possible to filter by subject ${subject}`, () =>
-        selectFacetTest('subject', subject))
+      it(`should be possible to filter by subject ${subject}`, () => selectFacetTest('subject', subject))
     })
   })
 
@@ -272,11 +256,7 @@ describe('The Publications page', () => {
 
     organizations.takeRandomSet().forEach(organization => {
       it(`should be possible to filter by organization ${organizations[organization]}`, () =>
-        selectFacetTest(
-          'organization',
-          organization,
-          organizations[organization]
-        ))
+        selectFacetTest('organization', organization, organizations[organization]))
     })
   })
 
