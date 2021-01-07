@@ -4,6 +4,7 @@
   "video": false,
   "defaultCommandTimeout": 2000,
   "viewportWidth": 1200,
-  "blacklistHosts": ["*google-analytics.com", "*hotjar.com"],
-  "env": {}
+  "blockHosts": ["*google-analytics.com", "*hotjar.com"],
+  "env": {},
+  "retries": 2
 }
