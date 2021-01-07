@@ -282,6 +282,9 @@ describe('The Publications page', () => {
 
   it('should not have facets without publications', () => {
     cy.get('.text-muted:contains("(0)")').should('have.length', 0)
+
+    cy.get('select.search-facet option:contains("(0)")').should('have.length', 0)
+    cy.get('.bootstrap-select > .dropdown-menu > .inner > li:contains("(0)")').should('have.length', 0)
   })
 
   it('should be possible to combine all filters', () => {
