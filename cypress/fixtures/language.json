@@ -50,6 +50,7 @@
     "por": "Portuguese",
     "rum": "Romanian",
     "rus": "Russian",
+    "sla": "Slavic languages",
     "slo": "Slovak",
     "slv": "Slovenian",
     "spa": "Spanish",
@@ -60,6 +61,7 @@
     "tsn": "Tswana",
     "tur": "Turkish",
     "ukr": "Ukrainian",
+    "und": "Undetermined",
     "vie": "Vietnamese",
     "zul": "Zulu"
 }

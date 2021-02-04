@@ -126,7 +126,7 @@
     "TW05": "Department of Information technology",
     "TW06": "Department of Electronics and information systems",
     "TW07": "Department of Telecommunications and information processing",
-    "TW08": "Department of Electrical Energy, Metals, Mechanical Constructions & Systems",
+    "TW08": "Department of Electromechanical, Systems and Metal Engineering",
     "TW11": "Department of Materials, Textiles and Chemical Engineering",
     "TW14": "Department of Structural engineering",
     "TW15": "Department of Civil engineering",
@@ -185,7 +185,7 @@
     "PP06": "Department of Educational Studies",
     "PP07": "Department of developmental, personality and social psychology",
     "PP08": "Department of Psycho-analysis and clinical consulting",
-    "PP09": "Department of Personnel management, work and organizational psychology",
+    "PP09": "Department of Work, Organisation and Society",
     "PP10": "Department of Special Needs Education",
     "PP11": "Department of Human Resource Management and Organisational Psychology",
     "PP51": "Dean's Office of the Faculty of Psychology and Educational Sciences",
@@ -260,5 +260,6 @@
     "CA70": "Department of Infrastructure and Facility Management",
     "CA80": "Department of Student Facilities",
     "CA95": "Ghent University Association",
-    "DS10": "Doctoral School of Arts, Humanities and Law"
+    "DS10": "Doctoral School of Arts, Humanities and Law",
+    "DS20": "Doctoral School of Social and Behavioural Sciences"
 }
