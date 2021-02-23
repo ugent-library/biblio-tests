@@ -95,7 +95,6 @@ describe('The Publications page', () => {
       issueEditor: 'Issue Editor',
       journalArticle: 'Journal Article',
       misc: 'Miscellaneous',
-      preprint: 'Preprint',
       researchData: 'Research Data',
     }
 
