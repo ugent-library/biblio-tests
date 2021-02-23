@@ -198,7 +198,7 @@ describe('The Publications page', () => {
       cy.get('@facets').should('not.be.checked')
     })
 
-    // Test for https://github.ugent.be/Universiteitsbibliotheek/biblio/issues/6
+    // Test for https://github.ugent.be/ugent-library/biblio/issues/6
     it('should not display a year 2109 facet', () => {
       cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
 
