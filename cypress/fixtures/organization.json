@@ -171,6 +171,7 @@
     "DI05": "Department of Pathobiology, Pharmacology and Zoological Medicine",
     "DI06": "Department of Veterinary Public Health and Food Safety (ceased 1-1-2022)",
     "DI07": "Department of Veterinary and Biosciences",
+    "DI08": "Department of Internal Medicine, Reproduction and Population Medicine",
     "DI09": "Department of Small animals",
     "DI10": "Department of Large Animal Surgery, Anaesthesia and Orthopaedics",
     "DI11": "Department of Morphology, Imaging, Orthopedics, Rehabilitation and Nutrition",
@@ -261,5 +262,6 @@
     "CA70": "Department of Infrastructure and Facility Management",
     "CA80": "Department of Student Facilities",
     "CA95": "Ghent University Association",
-    "DS10": "Doctoral School of Arts, Humanities and Law"
+    "DS10": "Doctoral School of Arts, Humanities and Law",
+    "DS30": "Doctoral School of Natural Sciences"
 }
