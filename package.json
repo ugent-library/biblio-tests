@@ -22,6 +22,6 @@
   },
   "devDependencies": {
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^2.0.0",
-    "jsdom": "^19.0.0"
+    "jsdom": "^20.0.0"
   }
 }
