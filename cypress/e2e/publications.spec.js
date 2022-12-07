@@ -8,17 +8,11 @@ describe('The Publications page', () => {
   function checkboxFacetTest(facetType, facet, facetLabel = null, testForPublicationTag = false) {
     cy.param(facetType).should('be.null')
 
-    cy.get(`:checkbox[id^="facet-${facetType}-"]`)
-      .as('facets')
-      .should('not.be.checked')
-      .filter(`[value="${facet}"]`)
-      .as('facet')
-      .siblings('label.plain')
-      .find('.text-muted')
-      .getCount()
-      .as('facetCount')
+    cy.getFacets(facetType).as('facets').should('not.be.checked')
 
-    cy.get('@facet').click()
+    cy.getFacet(facetType, facet).as('facet').siblings('label.plain').find('.text-muted').getCount().as('facetCount')
+
+    cy.get('@facet').click() // Apply filter
 
     cy.param(facetType).should('eq', facet)
 
@@ -129,7 +123,7 @@ describe('The Publications page', () => {
           .map(i => i.toString())
         cy.param('year').should('have.all.members', range)
 
-        cy.get(':checkbox[id^="facet-year-"]')
+        cy.getFacets('year')
           .as('facets')
           .each($el => {
             if (range.includes($el.val())) {
@@ -172,7 +166,7 @@ describe('The Publications page', () => {
       cy.param('min_year').should('eq', '1993')
       cy.param('max_year').should('eq', '2005')
 
-      cy.get(':checkbox[id^="facet-year-"]')
+      cy.getFacets('year')
         .as('facets')
         .each($el => {
           const year = parseInt($el.val())
@@ -198,19 +192,19 @@ describe('The Publications page', () => {
 
     // Test for https://github.ugent.be/ugent-library/biblio/issues/6
     it('should not display a year 2109 facet', () => {
-      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+      cy.getFacet('year', '2109').should('not.exist')
 
-      cy.get(':checkbox[id^="facet-year-"][value=2020]').click()
-      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+      cy.getFacet('year', '2020').click()
+      cy.getFacet('year', '2109').should('not.exist')
 
-      cy.get(':checkbox[id^="facet-year-"][value=2021]').click()
-      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+      cy.getFacet('year', '2021').click()
+      cy.getFacet('year', '2109').should('not.exist')
 
-      cy.get(':checkbox[id^="facet-year-"][value=2021]').click()
-      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+      cy.getFacet('year', '2021').click()
+      cy.getFacet('year', '2109').should('not.exist')
 
-      cy.get(':checkbox[id^="facet-year-"][value=2020]').click()
-      cy.get(':checkbox[id^="facet-year-"][value=2109]').should('not.exist')
+      cy.getFacet('year', '2020').click()
+      cy.getFacet('year', '2109').should('not.exist')
     })
   })
 
@@ -267,12 +261,7 @@ describe('The Publications page', () => {
 
   it('should be possible to combine all filters', () => {
     // Publication type: journalArticle
-    cy.get(':checkbox[id^="facet-type-"][value=journalArticle]')
-      .as('facet')
-      .next('label')
-      .find('.text-muted')
-      .getCount()
-      .as('facetCount')
+    cy.getFacet('type', 'journalArticle').as('facet').next('label').find('.text-muted').getCount().as('facetCount')
 
     cy.get('@facet').click()
 
@@ -281,7 +270,7 @@ describe('The Publications page', () => {
     })
 
     // Publication status: published
-    cy.get(':checkbox[id^="facet-publication_status-"][value=published]')
+    cy.getFacet('publication_status', 'published')
       .as('facet')
       .next('label')
       .find('.text-muted')
@@ -295,12 +284,7 @@ describe('The Publications page', () => {
     })
 
     // Publication year: 2015
-    cy.get(':checkbox[id^="facet-year-"][value=2015]')
-      .as('facet')
-      .siblings('label')
-      .find('.text-muted')
-      .getCount()
-      .as('facetCount')
+    cy.getFacet('year', '2015').as('facet').siblings('label').find('.text-muted').getCount().as('facetCount')
 
     cy.get('@facet').click()
 
@@ -309,7 +293,7 @@ describe('The Publications page', () => {
     })
 
     // Access: UGent only
-    cy.get(':checkbox[id^="facet-file_access-"][value=restricted]')
+    cy.getFacet('file_access', 'restricted')
       .as('facet')
       .siblings('label')
       .find('.text-muted')
@@ -338,12 +322,7 @@ describe('The Publications page', () => {
     })
 
     // Classification: A1
-    cy.get(':checkbox[id^="facet-classification-"][value=A1]')
-      .as('facet')
-      .siblings('label')
-      .find('.text-muted')
-      .getCount()
-      .as('facetCount')
+    cy.getFacet('classification', 'A1').as('facet').siblings('label').find('.text-muted').getCount().as('facetCount')
 
     cy.get('@facet').click()
 

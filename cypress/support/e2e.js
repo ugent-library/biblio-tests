@@ -16,6 +16,7 @@
 import 'cypress-common'
 
 import './commands'
+import './queries'
 
 Array.prototype.takeRandomSet = function (numberOfItems = 3) {
   return Cypress._.take(Cypress._.shuffle(this), numberOfItems)
