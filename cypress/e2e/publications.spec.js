@@ -283,8 +283,8 @@ describe('The Publications page', () => {
       expect(count).to.eq(this.facetCount)
     })
 
-    // Publication year: 2015
-    cy.getFacet('year', '2015').as('facet').siblings('label').find('.text-muted').getCount().as('facetCount')
+    // Publication year: 2018
+    cy.getFacet('year', '2018').as('facet').siblings('label').find('.text-muted').getCount().as('facetCount')
 
     cy.get('@facet').click()
 
