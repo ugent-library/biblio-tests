@@ -409,9 +409,9 @@ cssstyle@^2.3.0:
   dependencies:
     cssom "~0.3.6"
 
-"cypress-common@https://github.com/ugent-library/cypress-common.git#3.13.1":
-  version "3.13.1"
-  resolved "https://github.com/ugent-library/cypress-common.git#492fc924ba72d0a96db10e13ef35477239887a7d"
+"cypress-common@https://github.com/ugent-library/cypress-common.git#3.14.0":
+  version "3.14.0"
+  resolved "https://github.com/ugent-library/cypress-common.git#366949a391ac3ae622d4adae539d24a603d88e58"
 
 cypress@^12.9.0:
   version "12.9.0"
