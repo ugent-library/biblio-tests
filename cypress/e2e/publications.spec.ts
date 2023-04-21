@@ -5,7 +5,7 @@ describe('The Publications page', () => {
 
   xit('should be possible to search by full text', () => {})
 
-  function checkboxFacetTest(facetType, facet, facetLabel = null, testForPublicationTag = false) {
+  function checkboxFacetTest(facetType: string, facet: string, facetLabel?: string, testForPublicationTag = false) {
     cy.param(facetType).should('be.null')
 
     cy.getFacets(facetType).as('facets').should('not.be.checked')
@@ -16,9 +16,7 @@ describe('The Publications page', () => {
 
     cy.param(facetType).should('eq', facet)
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     cy.get('@facet').should('be.checked')
 
@@ -34,7 +32,7 @@ describe('The Publications page', () => {
     cy.get('.active-filter')
       .as('filter')
       .should('have.length', 1)
-      .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
+      .should(f => expect(f.eq(0).prop('textContent').trim()).to.eq(`${facetType}: ${facet}`))
       .find('a')
       .click()
 
@@ -45,7 +43,7 @@ describe('The Publications page', () => {
     cy.get('@filter').should('have.length', 0)
   }
 
-  function selectFacetTest(facetType, facet, facetLabel = null) {
+  function selectFacetTest(facetType: string, facet: string, facetLabel?: string) {
     cy.param(facetType).should('be.null')
 
     cy.contains('h2', Cypress._.capitalize(facetType))
@@ -64,14 +62,12 @@ describe('The Publications page', () => {
 
     cy.param(facetType).should('eq', facet)
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     cy.get('.active-filter')
       .as('filter')
       .should('have.length', 1)
-      .should(f => expect(f[0].textContent.trim()).to.eq(`${facetType}: ${facet}`))
+      .should(f => expect(f.eq(0).prop('textContent').trim()).to.eq(`${facetType}: ${facet}`))
       .find('a')
       .click()
 
@@ -80,7 +76,7 @@ describe('The Publications page', () => {
   }
 
   describe('The publication type filter', () => {
-    const publicationTypes = {
+    const publicationTypes: Record<string, string> = {
       book: 'Book',
       bookChapter: 'Book Chapter',
       bookEditor: 'Book Editor',
@@ -107,7 +103,7 @@ describe('The Publications page', () => {
   })
 
   describe('The publication year facet', () => {
-    const years = require('../fixtures/year')
+    const years: Record<string, string> = require('../fixtures/year.json')
 
     years.takeRandomSet().forEach(year => {
       it(`should be possible to filter by year ${year}`, () => checkboxFacetTest('year', year))
@@ -125,8 +121,8 @@ describe('The Publications page', () => {
 
         cy.getFacets('year')
           .as('facets')
-          .each($el => {
-            if (range.includes($el.val())) {
+          .each(($el: JQuery<HTMLInputElement>) => {
+            if (range.includes($el.val() as string)) {
               expect($el).to.be.checked
             } else {
               expect($el).to.be.not.checked
@@ -169,7 +165,7 @@ describe('The Publications page', () => {
       cy.getFacets('year')
         .as('facets')
         .each($el => {
-          const year = parseInt($el.val())
+          const year = parseInt($el.val() as string)
           if (year >= 1993 && year <= 2005) {
             expect($el).to.be.checked
           } else {
@@ -218,7 +214,7 @@ describe('The Publications page', () => {
   })
 
   describe('The subject filter', () => {
-    const subjects = require('../fixtures/subject')
+    const subjects: Record<string, string> = require('../fixtures/subject')
 
     subjects.takeRandomSet().forEach(subject => {
       it(`should be possible to filter by subject ${subject}`, () => selectFacetTest('subject', subject))
@@ -226,7 +222,7 @@ describe('The Publications page', () => {
   })
 
   describe('The classification filter', () => {
-    const classifications = require('../fixtures/classification')
+    const classifications: Record<string, string> = require('../fixtures/classification')
 
     classifications.takeRandomSet().forEach(classification => {
       it(`should be possible to filter by classification ${classification}`, () =>
@@ -235,7 +231,7 @@ describe('The Publications page', () => {
   })
 
   describe('The language filter', () => {
-    const languages = require('../fixtures/language')
+    const languages: Record<string, string> = require('../fixtures/language')
 
     languages.takeRandomSet().forEach(language => {
       it(`should be possible to filter by language ${languages[language]}`, () =>
@@ -244,7 +240,7 @@ describe('The Publications page', () => {
   })
 
   describe('The organization filter', () => {
-    const organizations = require('../fixtures/organization')
+    const organizations: Record<string, string> = require('../fixtures/organization')
 
     organizations.takeRandomSet().forEach(organization => {
       it(`should be possible to filter by organization ${organizations[organization]}`, () =>
@@ -265,9 +261,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     // Publication status: published
     cy.getFacet('publication_status', 'published')
@@ -279,18 +273,14 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     // Publication year: 2018
     cy.getFacet('year', '2018').as('facet').siblings('label').find('.text-muted').getCount().as('facetCount')
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     // Access: UGent only
     cy.getFacet('file_access', 'restricted')
@@ -302,9 +292,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     // Subject: Medicine and Health Sciences
     cy.contains('h2', 'Subject')
@@ -317,18 +305,14 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     // Classification: A1
     cy.getFacet('classification', 'A1').as('facet').siblings('label').find('.text-muted').getCount().as('facetCount')
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     // Language: English
     cy.contains('h2', 'Language')
@@ -341,9 +325,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
 
     // Organization: Department of Internal medicine
     cy.contains('h2', 'Organization')
@@ -356,9 +338,7 @@ describe('The Publications page', () => {
 
     cy.get('@facet').click()
 
-    cy.getCount().should(function (count) {
-      expect(count).to.eq(this.facetCount)
-    })
+    cy.getCount().should('eq', '@facetCount')
   })
 
   xit('should be possible to jump through pages of search results', () => {})

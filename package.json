@@ -5,14 +5,19 @@
   "repository": "git@github.com:ugent-library/biblio-tests.git",
   "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
   "license": "BSD-3-Clause",
+  "type": "module",
   "scripts": {
+    "lint": "tsc",
     "test": "cypress run",
     "generate-fixtures": "node scripts/generate-fixtures.mjs",
     "precommit": "node node_modules/js-precommit-hook"
   },
   "pre-commit": {
     "silent": "true",
-    "run": "precommit"
+    "run": [
+      "lint",
+      "precommit"
+    ]
   },
   "precommit.silent": true,
   "dependencies": {
@@ -22,6 +27,7 @@
   },
   "devDependencies": {
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^2.1.0",
-    "jsdom": "^21.1.1"
+    "jsdom": "^21.1.1",
+    "typescript": "^5.0.4"
   }
 }

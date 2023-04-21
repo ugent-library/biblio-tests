@@ -17,10 +17,16 @@ Cypress.Commands.add('getCount', { prevSubject: ['element', 'optional'] }, subje
     message: [count],
     consoleProps: () => {
       return {
-        count: count
+        count: count,
       }
-    }
+    },
   })
 
   return cy.wrap(count, { log: false })
 })
+
+declare namespace Cypress {
+  interface Chainable {
+    getCount(): Chainable<number>
+  }
+}

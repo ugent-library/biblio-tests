@@ -18,10 +18,24 @@ import 'cypress-common'
 import './commands'
 import './queries'
 
-Array.prototype.takeRandomSet = function (numberOfItems = 3) {
-  return Cypress._.take(Cypress._.shuffle(this), numberOfItems)
+declare global {
+  interface Array<T> {
+    takeRandomSet(numberOfItems?: number): T[]
+  }
+
+  interface Object {
+    takeRandomSet(numberOfItems?: number): string[]
+  }
 }
 
-Object.prototype.takeRandomSet = function (numberOfItems = 3) {
-  return Object.keys(this).takeRandomSet(numberOfItems)
-}
+Object.defineProperty(Array.prototype, 'takeRandomSet', {
+  value: function <T>(numberOfItems = 3) {
+    return Cypress._.take<T>(Cypress._.shuffle(this), numberOfItems)
+  },
+})
+
+Object.defineProperty(Object.prototype, 'takeRandomSet', {
+  value: function (numberOfItems = 3) {
+    return Object.keys(this).takeRandomSet(numberOfItems)
+  },
+})

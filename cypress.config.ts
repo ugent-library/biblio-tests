@@ -1,6 +1,6 @@
-const { defineConfig } = require('cypress')
+import { defineConfig } from 'cypress'
 
-module.exports = defineConfig({
+export default defineConfig({
   projectId: 'or6diq',
   video: false,
   defaultCommandTimeout: 2000,
@@ -9,7 +9,7 @@ module.exports = defineConfig({
   retries: 2,
 
   e2e: {
-    setupNodeEvents(on, config) {},
+    setupNodeEvents() {},
     baseUrl: 'https://bibliotest.ugent.be',
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
     experimentalRunAllSpecs: true,
