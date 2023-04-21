@@ -21,7 +21,7 @@
     "escape-string-regexp": "^5.0.0"
   },
   "devDependencies": {
-    "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^2.0.0",
-    "jsdom": "^20.0.0"
+    "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^2.1.0",
+    "jsdom": "^21.1.1"
   }
 }
