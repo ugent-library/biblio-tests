@@ -32,7 +32,7 @@ function exportFromSelect(dom, facet) {
 }
 
 async function run() {
-  const dom = await JSDOM.fromURL('https://biblio.ugent.be/publication')
+  const dom = await JSDOM.fromURL('https://bibliotest.ugent.be/publication')
 
   exportFromCheckboxes(dom, 'year')
   exportFromSelect(dom, 'subject')
