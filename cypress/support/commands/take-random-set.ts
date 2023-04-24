@@ -4,7 +4,7 @@ Cypress.Commands.add('takeRandomSet', { prevSubject: true }, (subject, numberOfI
   }
 
   let yielded: unknown = null
-  if (Cypress._.isArray(subject)) {
+  if (Cypress._.isArrayLike(subject)) {
     yielded = Cypress._.chain(subject).shuffle().take(numberOfItems).value()
   } else {
     throw new Error('Invalid subject type.')
