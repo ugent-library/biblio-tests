@@ -1,5 +1,11 @@
 import escapeStringRegexp from 'escape-string-regexp'
 
+import years from '../fixtures/year.json'
+import subjects from '../fixtures/subject.json'
+import classifications from '../fixtures/classification.json'
+import languages from '../fixtures/language.json'
+import organizations from '../fixtures/organization.json'
+
 describe('The Publications page', () => {
   beforeEach(() => cy.visit('/publication'))
 
@@ -85,6 +91,7 @@ describe('The Publications page', () => {
       issueEditor: 'Issue Editor',
       journalArticle: 'Journal Article',
       misc: 'Miscellaneous',
+      researchData: 'Research Data',
     }
 
     publicationTypes.takeRandomSet().forEach(type => {
@@ -103,8 +110,6 @@ describe('The Publications page', () => {
   })
 
   describe('The publication year facet', () => {
-    const years: Record<string, string> = require('../fixtures/year.json')
-
     years.takeRandomSet().forEach(year => {
       it(`should be possible to filter by year ${year}`, () => checkboxFacetTest('year', year))
     })
@@ -214,16 +219,12 @@ describe('The Publications page', () => {
   })
 
   describe('The subject filter', () => {
-    const subjects: Record<string, string> = require('../fixtures/subject')
-
     subjects.takeRandomSet().forEach(subject => {
       it(`should be possible to filter by subject ${subject}`, () => selectFacetTest('subject', subject))
     })
   })
 
   describe('The classification filter', () => {
-    const classifications: Record<string, string> = require('../fixtures/classification')
-
     classifications.takeRandomSet().forEach(classification => {
       it(`should be possible to filter by classification ${classification}`, () =>
         checkboxFacetTest('classification', classification))
@@ -231,8 +232,6 @@ describe('The Publications page', () => {
   })
 
   describe('The language filter', () => {
-    const languages: Record<string, string> = require('../fixtures/language')
-
     languages.takeRandomSet().forEach(language => {
       it(`should be possible to filter by language ${languages[language]}`, () =>
         selectFacetTest('language', language, languages[language]))
@@ -240,8 +239,6 @@ describe('The Publications page', () => {
   })
 
   describe('The organization filter', () => {
-    const organizations: Record<string, string> = require('../fixtures/organization')
-
     organizations.takeRandomSet().forEach(organization => {
       it(`should be possible to filter by organization ${organizations[organization]}`, () =>
         selectFacetTest('organization', organization, organizations[organization]))

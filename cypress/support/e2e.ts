@@ -1,18 +1,3 @@
-// ***********************************************************
-// This example support/index.js is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
-
 import 'cypress-common'
 
 import './commands'
@@ -24,7 +9,7 @@ declare global {
   }
 
   interface Object {
-    takeRandomSet(numberOfItems?: number): string[]
+    takeRandomSet<T, K extends keyof T>(this: T, numberOfItems?: number): K[]
   }
 }
 
@@ -35,7 +20,9 @@ Object.defineProperty(Array.prototype, 'takeRandomSet', {
 })
 
 Object.defineProperty(Object.prototype, 'takeRandomSet', {
-  value: function (numberOfItems = 3) {
-    return Object.keys(this).takeRandomSet(numberOfItems)
+  value: function <T, K extends keyof T>(numberOfItems = 3): K[] {
+    const keys = Object.keys(this) as K[]
+
+    return keys.takeRandomSet(numberOfItems)
   },
 })
