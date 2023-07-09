@@ -4,6 +4,7 @@
     "VIB": "VIB",
     "IMEC": "Imec",
     "IBBT": "iMinds",
+    "FlandersMake": "Flanders Make",
     "HOGENT": "University College Ghent",
     "HOWEST": "University College West Flanders",
     "HOART": "University College Artevelde",
@@ -92,6 +93,7 @@
     "GE51": "Dean's Office of the Faculty of Medicine and Health Sciences",
     "GE54": "PC-Lab of the Faculty of Medicine and Health Sciences",
     "GE55": "Knowledge Centre for Health Ghent",
+    "GE56": "The GHALL (Ghent Health Academy for Lifelong Learning)",
     "GE58": "Faculty Education Services Medicine and Health Sciences",
     "GE61": "Animalarium",
     "GE63": "Center for Healthy and Safe Working Conditions",
@@ -252,6 +254,7 @@
     "CA04": "Chief Logistics Administrator",
     "CA05": "Secretariat of the Board of Governors",
     "CA06": "Department UCBO-UCRO",
+    "CA08": "Academic Director of Internationalization",
     "CA09": "Centre for Academic Heritage and Archives",
     "CA10": "Department of Educational Affairs",
     "CA20": "Department of Research Affairs",
@@ -262,5 +265,6 @@
     "CA70": "Department of Infrastructure and Facility Management",
     "CA80": "Department of Student Facilities",
     "CA95": "Ghent University Association",
-    "DS10": "Doctoral School of Arts, Humanities and Law"
+    "DS10": "Doctoral School of Arts, Humanities and Law",
+    "DS30": "Doctoral School of Natural Sciences"
 }
