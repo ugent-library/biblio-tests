@@ -29,5 +29,8 @@
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^2.1.0",
     "jsdom": "^22.1.0",
     "typescript": "^5.1.6"
+  },
+  "resolutions": {
+    "@cypress/request": "^3.0.0"
   }
 }
