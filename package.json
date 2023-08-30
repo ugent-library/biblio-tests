@@ -21,7 +21,7 @@
   },
   "precommit.silent": true,
   "dependencies": {
-    "cypress": "^12.17.4",
+    "cypress": "^13.0.0",
     "cypress-common": "https://github.com/ugent-library/cypress-common.git#3.14.0",
     "escape-string-regexp": "^5.0.0"
   },
@@ -29,8 +29,5 @@
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^2.1.0",
     "jsdom": "^22.1.0",
     "typescript": "^5.1.6"
-  },
-  "resolutions": {
-    "@cypress/request": "^3.0.0"
   }
 }
