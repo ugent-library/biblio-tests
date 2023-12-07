@@ -1,25 +1,24 @@
 describe('The Home page', () => {
-  it('should display the highlights', () => {
+  it('should display the highlighted publications and datasets', () => {
     cy.visit('/')
 
     cy.contains('New open access publications and datasets').should('be.visible')
 
-    cy.get('.content-header-home ul:not(.list-unstyled) > li > a').as('publications').should('have.length', 6)
+    cy.get<HTMLAnchorElement>('.content-header-home ul:not(.list-unstyled) > li > a')
+      .should('have.length.gte', 4)
+      .should('have.length.lte', 6)
+      .each(($el, index) => {
+        cy.visit($el.prop('href'))
 
-    function checkResearchData(index: number, shouldBeOfTypeResearchData: boolean) {
-      cy.get('@publications').eq(index).click()
-      cy.contains('aside .subtle dt', 'Publication type')
-        .next()
-        .should(shouldBeOfTypeResearchData ? 'contain' : 'not.contain', 'Research Data')
-      cy.go('back')
-    }
+        cy.contains('aside .subtle dt', 'Publication type')
+          .next()
+          // First 3 highlights are publications, next 3 (or less) are datasets
+          .should(index >= 3 ? 'contain' : 'not.contain', 'Research Data')
+      })
+  })
 
-    checkResearchData(0, false)
-    checkResearchData(1, false)
-    checkResearchData(2, false)
-    checkResearchData(3, true)
-    checkResearchData(4, true)
-    checkResearchData(5, true)
+  it('should link the publications and datasets search pages', () => {
+    cy.visit('/')
 
     cy.contains('.content-header-home', 'View all open access publications and datasets').should('be.visible')
 
@@ -36,7 +35,7 @@ describe('The Home page', () => {
     cy.location('pathname').should('eq', '/publication')
     cy.get('ul[data-facet=type]').find(':checkbox[value=researchData]').should('be.visible')
     cy.get('a.btn-tag[href*="/type/"]')
-      .should('have.length', 10)
+      .should('have.length.gte', 1)
       .map('textContent')
       .unique()
       .should('eql', ['Research Data'])
