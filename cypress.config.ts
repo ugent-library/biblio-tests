@@ -5,7 +5,7 @@ export default defineConfig({
   video: false,
   defaultCommandTimeout: 2000,
   viewportWidth: 1200,
-  blockHosts: ['*google-analytics.com', '*hotjar.com'],
+  blockHosts: ['*google-analytics.com', '*hotjar.com', '*ugent.containers.piwik.pro'],
   retries: 2,
 
   e2e: {
