@@ -21,13 +21,14 @@
   },
   "precommit.silent": true,
   "dependencies": {
-    "cypress": "^13.5.0",
-    "cypress-common": "https://github.com/ugent-library/cypress-common.git#3.14.0",
+    "cypress": "^13.6.3",
+    "cypress-common": "https://github.com/ugent-library/cypress-common.git#3.16.1",
     "escape-string-regexp": "^5.0.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.5",
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^2.1.0",
-    "jsdom": "^22.1.0",
-    "typescript": "^5.1.6"
+    "jsdom": "^23.2.0",
+    "typescript": "^5.3.3"
   }
 }
