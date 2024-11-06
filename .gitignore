@@ -1,3 +1,4 @@
 node_modules/
 run-tests.sh
 cypress/screenshots/**
+cypress/cypress-record.sh
