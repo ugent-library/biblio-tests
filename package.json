@@ -21,7 +21,7 @@
   },
   "precommit.silent": true,
   "dependencies": {
-    "cypress": "^14.0.0",
+    "cypress": "^14.0.3",
     "cypress-common": "ugent-library/cypress-common.git",
     "escape-string-regexp": "^5.0.0"
   },
