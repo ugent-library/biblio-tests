@@ -1,10 +1,10 @@
 import escapeStringRegexp from "escape-string-regexp";
 
-import years from "../fixtures/year.json";
-import subjects from "../fixtures/subject.json";
 import classifications from "../fixtures/classification.json";
 import languages from "../fixtures/language.json";
 import organizations from "../fixtures/organization.json";
+import subjects from "../fixtures/subject.json";
+import years from "../fixtures/year.json";
 
 describe("The Publications page", () => {
   beforeEach(() => cy.visit("/publication"));
@@ -315,8 +315,8 @@ describe("The Publications page", () => {
 
     cy.getCount().should("eq", "@facetCount");
 
-    // Publication year: 2018
-    cy.getFacet("year", "2018")
+    // Publication year: 2022
+    cy.getFacet("year", "2022")
       .as("facet")
       .siblings("label")
       .find(".text-muted")
@@ -381,7 +381,7 @@ describe("The Publications page", () => {
     cy.contains("h2", "Organization")
       .next(".bootstrap-select")
       .click()
-      .contains(".dropdown-menu.inner li", "Department of Internal medicine")
+      .contains(".dropdown-menu.inner li", "Department of Internal Medicine")
       .as("facet")
       .getCount()
       .as("facetCount");
