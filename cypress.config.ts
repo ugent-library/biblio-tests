@@ -11,9 +11,9 @@ export default defineConfig({
     "*ugent.containers.piwik.pro",
   ],
   retries: 2,
+  allowCypressEnv: false,
 
   e2e: {
-    setupNodeEvents() {},
     baseUrl: "https://bibliotest.ugent.be",
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     experimentalRunAllSpecs: true,

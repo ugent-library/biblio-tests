@@ -22,14 +22,14 @@
   "precommit.silent": true,
   "dependencies": {
     "cypress": "^15.14.0",
-    "cypress-common": "github:ugent-library/cypress-common.git",
+    "cypress-common": "github:ugent-library/cypress-common.git#semver:^3.18.1",
     "escape-string-regexp": "^5.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
+    "@types/node": "^24.12.2",
     "js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:^2.1.4",
-    "jsdom": "^24.0.0",
-    "typescript": "^5.4.3"
+    "jsdom": "^29.0.2",
+    "typescript": "^6.0.3"
   },
   "overrides": {
     "cross-spawn": "^7.0.6"

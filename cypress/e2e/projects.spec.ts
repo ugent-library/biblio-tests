@@ -1,4 +1,4 @@
-import { getAlphabet } from "cypress/support/util";
+import { getAlphabet } from "../support/util";
 
 describe("The Projects page", () => {
   const pages = Cypress._.pull(getAlphabet(), "X").takeRandomSet(3);
