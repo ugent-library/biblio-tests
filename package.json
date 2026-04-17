@@ -1,38 +1,38 @@
 {
-  "name": "biblio-tests",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:ugent-library/biblio-tests.git",
-  "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
-  "license": "BSD-3-Clause",
-  "type": "module",
-  "scripts": {
-    "lint": "tsc",
-    "test": "cypress run",
-    "generate-fixtures": "node scripts/generate-fixtures.mjs",
-    "precommit": "node node_modules/js-precommit-hook"
-  },
-  "pre-commit": {
-    "silent": "true",
-    "run": [
-      "lint",
-      "precommit"
-    ]
-  },
-  "precommit.silent": true,
-  "dependencies": {
-    "cypress": "^15.8.2",
-    "cypress-common": "ugent-library/cypress-common.git",
-    "escape-string-regexp": "^5.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.30",
-    "js-precommit-hook": "ugent-library/js-precommit-hook#^2.1.3",
-    "jsdom": "^24.0.0",
-    "typescript": "^5.4.3"
-  },
-  "resolutions": {
-    "cross-spawn": "^7.0.5",
-    "qs": "^6.14.1"
-  }
+	"name": "biblio-tests",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "git@github.com:ugent-library/biblio-tests.git",
+	"author": "Koen Verheyen <koen.verheyen@inuits.eu>",
+	"license": "BSD-3-Clause",
+	"type": "module",
+	"scripts": {
+		"lint": "tsc",
+		"test": "cypress run",
+		"generate-fixtures": "node scripts/generate-fixtures.mjs",
+		"precommit": "node node_modules/js-precommit-hook"
+	},
+	"pre-commit": {
+		"silent": "true",
+		"run": [
+			"lint",
+			"precommit"
+		]
+	},
+	"precommit.silent": true,
+	"dependencies": {
+		"cypress": "^15.14.0",
+		"cypress-common": "github:ugent-library/cypress-common.git",
+		"escape-string-regexp": "^5.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.30",
+		"js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:^2.1.4",
+		"jsdom": "^24.0.0",
+		"typescript": "^5.4.3"
+	},
+	"resolutions": {
+		"cross-spawn": "^7.0.5",
+		"qs": "^6.14.1"
+	}
 }
