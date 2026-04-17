@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "tsc",
     "test": "cypress run",
-    "generate-fixtures": "node scripts/generate-fixtures.mjs",
+    "generate-fixtures": "node scripts/generate-fixtures.ts",
     "precommit": "node node_modules/js-precommit-hook"
   },
   "pre-commit": {
@@ -26,6 +26,7 @@
     "escape-string-regexp": "^5.0.0"
   },
   "devDependencies": {
+    "@types/jsdom": "^28.0.1",
     "@types/node": "^24.12.2",
     "js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:^2.1.4",
     "jsdom": "^29.0.2",
