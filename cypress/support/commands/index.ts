@@ -1,3 +1,3 @@
-import './get-count'
-import './should'
-import './take-random-set'
+import "./get-count";
+import "./should";
+import "./take-random-set";

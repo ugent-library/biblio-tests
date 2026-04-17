@@ -1,2 +1,2 @@
-import './get-facets'
-import './get-facet'
+import "./get-facets";
+import "./get-facet";
