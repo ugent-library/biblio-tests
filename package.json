@@ -28,11 +28,8 @@
   "devDependencies": {
     "@types/jsdom": "^28.0.1",
     "@types/node": "^24.12.2",
-    "js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:^2.1.4",
+    "js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:^2.1.6",
     "jsdom": "^29.1.0",
     "typescript": "^6.0.3"
-  },
-  "overrides": {
-    "cross-spawn": "^7.0.6"
   }
 }
