@@ -2,6 +2,7 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   projectId: "or6diq",
+  defaultBrowser: "chrome",
   video: false,
   defaultCommandTimeout: 2000,
   viewportWidth: 1200,
@@ -11,11 +12,9 @@ export default defineConfig({
     "*ugent.containers.piwik.pro",
   ],
   retries: 2,
-  allowCypressEnv: false,
 
   e2e: {
     baseUrl: "https://bibliotest.ugent.be",
-    specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     experimentalRunAllSpecs: true,
   },
 });

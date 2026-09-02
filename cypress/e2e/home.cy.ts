@@ -1,3 +1,4 @@
+
 describe("The Home page", () => {
   it("should display the highlighted publications and datasets", () => {
     cy.visit("/");
