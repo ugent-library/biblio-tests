@@ -31,5 +31,9 @@
     "js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:^2.1.6",
     "jsdom": "^29.1.1",
     "typescript": "^6.0.3"
+  },
+  "allowScripts": {
+    "cypress@16.0.0": true,
+    "pre-commit@2.0.0": true
   }
 }
