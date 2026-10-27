@@ -16,13 +16,11 @@ Cypress.Commands.add(
     Cypress.log({
       name: "takeRandomSet",
       message: [numberOfItems],
-      consoleProps: () => {
-        return {
-          subject,
-          numberOfItems,
-          yielded,
-        };
-      },
+      consoleProps: () => ({
+        subject,
+        numberOfItems,
+        yielded,
+      }),
     });
 
     return cy.wrap(yielded, { log: false });

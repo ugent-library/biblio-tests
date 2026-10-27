@@ -18,11 +18,7 @@ Cypress.Commands.add(
     Cypress.log({
       name: "getCount",
       message: [count],
-      consoleProps: () => {
-        return {
-          count: count,
-        };
-      },
+      consoleProps: () => ({ count }),
     });
 
     return cy.wrap(count, { log: false });
