@@ -21,7 +21,7 @@
   },
   "precommit.silent": true,
   "dependencies": {
-    "cypress": "^16.2.0",
+    "cypress": "^16.3.0",
     "cypress-common": "github:ugent-library/cypress-common.git#semver:^4.0.0",
     "escape-string-regexp": "^5.0.0"
   },
@@ -34,6 +34,6 @@
   },
   "allowScripts": {
     "pre-commit@2.0.0": true,
-    "cypress@16.2.0": true
+    "cypress@16.3.0": true
   }
 }
