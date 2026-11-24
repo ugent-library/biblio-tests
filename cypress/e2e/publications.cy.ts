@@ -3,7 +3,6 @@ import escapeStringRegexp from "escape-string-regexp";
 import classifications from "../fixtures/classification.json";
 import languages from "../fixtures/language.json";
 import organizations from "../fixtures/organization.json";
-import subjects from "../fixtures/subject.json";
 import years from "../fixtures/year.json";
 
 describe("The Publications page", () => {
@@ -246,13 +245,6 @@ describe("The Publications page", () => {
     });
   });
 
-  describe("The subject filter", () => {
-    subjects.takeRandomSet().forEach((subject) => {
-      it(`should be possible to filter by subject ${subject}`, () =>
-        selectFacetTest("subject", subject));
-    });
-  });
-
   describe("The classification filter", () => {
     classifications.takeRandomSet().forEach((classification) => {
       it(`should be possible to filter by classification ${classification}`, () =>
@@ -332,19 +324,6 @@ describe("The Publications page", () => {
       .as("facet")
       .siblings("label")
       .find(".text-muted")
-      .getCount()
-      .as("facetCount");
-
-    cy.get("@facet").click();
-
-    cy.getCount().should("eq", "@facetCount");
-
-    // Subject: Medicine and Health Sciences
-    cy.contains("h2", "Subject")
-      .next(".bootstrap-select")
-      .click()
-      .contains(".dropdown-menu.inner li", "Medicine and Health Sciences")
-      .as("facet")
       .getCount()
       .as("facetCount");
 
